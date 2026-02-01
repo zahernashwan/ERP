@@ -47,17 +47,17 @@ public sealed class Journal : Entity<JournalId>
         return new Journal(id, number, accountingDate, reference?.Trim());
     }
 
-    public void AddDebit(AccountId accountId, Money amount, string? description = null)
+    public void AddDebit(AccountId accountId, Money amount, string? description = null, ProjectId? projectId = null)
     {
         EnsureDraft();
-        var line = JournalLine.CreateDebit(accountId, amount, description);
+        var line = JournalLine.CreateDebit(accountId, amount, description, projectId);
         AddLine(line);
     }
 
-    public void AddCredit(AccountId accountId, Money amount, string? description = null)
+    public void AddCredit(AccountId accountId, Money amount, string? description = null, ProjectId? projectId = null)
     {
         EnsureDraft();
-        var line = JournalLine.CreateCredit(accountId, amount, description);
+        var line = JournalLine.CreateCredit(accountId, amount, description, projectId);
         AddLine(line);
     }
 
