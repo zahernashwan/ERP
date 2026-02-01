@@ -1,13 +1,13 @@
-# 📘 ERP.Domain — Core Business Layer
+# 📘 ERP.Domain — طبقة الأعمال الأساسية
 
-## Purpose
-The Domain layer contains the core business model and rules. It must remain pure, framework-free, and independent from infrastructure or UI concerns.
+## الهدف
+تحتوي طبقة النطاق (Domain) على نموذج الأعمال الأساسي والقواعد. يجب أن تبقى نقية، خالية من الأطر، ومستقلة عن البنية التحتية أو مخاوف واجهة المستخدم.
 
-## Responsibilities
-- Model business concepts using entities, value objects, and aggregates where justified.
-- Enforce business invariants within aggregate boundaries.
-- Raise domain events that describe meaningful business occurrences.
+## المسؤوليات
+- نمذجة مفاهيم الأعمال باستخدام الكيانات (Entities)، كائنات القيمة (Value Objects)، والتجمعات (Aggregates) عند الحاجة.
+- فرض القواعد التجارية الثابتة داخل حدود التجمع (Aggregate).
+- إصدار أحداث النطاق (Domain Events) التي تصف الأحداث التجارية ذات المعنى.
 
-## Boundaries
-- No persistence, frameworks, or UI dependencies.
-- No application orchestration or use-case flow logic.
+## الحدود
+- لا تخزين، لا أطر عمل، ولا اعتماديات واجهة مستخدم.
+- لا تنسيق للتطبيق أو منطق سير حالات الاستخدام.

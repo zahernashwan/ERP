@@ -1,12 +1,12 @@
-# 📙 ERP.Infrastructure — Technical Implementations
+# 📙 ERP.Infrastructure — التنفيذات التقنية
 
-## Purpose
-The Infrastructure layer provides technical implementations for persistence, messaging, file systems, and external services.
+## الهدف
+توفر طبقة البنية التحتية (Infrastructure) التنفيذات التقنية للتخزين، والرسائل، ونظام الملفات، والخدمات الخارجية.
 
-## Responsibilities
-- Implement repositories, messaging, and integration adapters.
-- Handle configuration and technical concerns behind interfaces.
+## المسؤوليات
+- تنفيذ المستودعات (Repositories)، والرسائل، ومحولات التكامل.
+- التعامل مع الإعدادات والمخاوف التقنية خلف الواجهات.
 
-## Boundaries
-- No business rules or domain logic.
-- Depend inward on Application/Domain abstractions only.
+## الحدود
+- لا قواعد أعمال أو منطق نطاق.
+- تعتمد للداخل فقط على تجريدات التطبيق/النطاق.
