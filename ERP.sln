@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Infrastructure", "src\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Presentation.WinForms", "src\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj", "{1FE82B66-A850-482C-B887-D6DA27C2901A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.ArchitectureGuard", "tests\ERP.ArchitectureGuard\ERP.ArchitectureGuard.csproj", "{7B9FA619-7E3E-4A5D-973A-91190C418E98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,5 +34,9 @@ Global
 		{1FE82B66-A850-482C-B887-D6DA27C2901A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE82B66-A850-482C-B887-D6DA27C2901A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE82B66-A850-482C-B887-D6DA27C2901A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9FA619-7E3E-4A5D-973A-91190C418E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9FA619-7E3E-4A5D-973A-91190C418E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9FA619-7E3E-4A5D-973A-91190C418E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9FA619-7E3E-4A5D-973A-91190C418E98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
