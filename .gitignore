@@ -92,12 +92,9 @@ _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
 
-# Rider
-.idea/
-*.sln.iml
-
 # JetBrains Rider
 .idea/
+*.sln.iml
 
 # VS Code
 .vscode/*
@@ -118,10 +115,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
-
-# JetBrains Rider
-.idea/
-*.sln.iml
 
 # Publish Web Output
 *.[Pp]ublish.xml
