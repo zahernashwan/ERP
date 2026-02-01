@@ -9,6 +9,6 @@ internal static class Program
     private static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Application.Run(new MainForm());
+        System.Windows.Forms.Application.Run(new MainForm());
     }
 }

@@ -2,7 +2,9 @@ using System.Reflection;
 using ERP.Application;
 using ERP.Domain;
 using ERP.Infrastructure;
+#if WINDOWS
 using ERP.Presentation.WinForms;
+#endif
 using Xunit;
 
 namespace ERP.ArchitectureGuard;
@@ -47,6 +49,7 @@ public class ArchitectureDependencyTests
         Assert.DoesNotContain("ERP.Presentation.WinForms", references);
     }
 
+#if WINDOWS
     [Fact]
     public void Presentation_Should_Not_Depend_On_Infrastructure()
     {
@@ -55,6 +58,7 @@ public class ArchitectureDependencyTests
         Assert.Contains("ERP.Application", references);
         Assert.DoesNotContain("ERP.Infrastructure", references);
     }
+#endif
 
     [Fact]
     public void Domain_Should_Not_Depend_On_Application_Infrastructure_Or_Presentation()
