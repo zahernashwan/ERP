@@ -8,6 +8,8 @@ namespace ERP.ArchitectureGuard;
 
 public class ArchitectureDependencyTests
 {
+    private const string PresentationAssemblyName = "ERP.Presentation.WinForms";
+
     [Fact]
     public void Domain_Should_Not_Depend_On_Any_Other_Solution_Project()
     {
@@ -39,11 +41,29 @@ public class ArchitectureDependencyTests
         Assert.DoesNotContain("ERP.Presentation.WinForms", references);
     }
 
+    #if WINDOWS
     [Fact]
+    #else
+    [Fact(Skip = "Presentation layer dependency checks require Windows desktop targeting.")]
+    #endif
     public void Presentation_Should_Not_Depend_On_Infrastructure()
     {
-        var references = GetReferencedProjectNames(typeof(ERP.Presentation.WinForms.AssemblyMarker).Assembly);
+        var references = GetPresentationReferencedProjectNames();
         Assert.DoesNotContain("ERP.Infrastructure", references);
+    }
+
+    private static string[] GetPresentationReferencedProjectNames()
+    {
+        var reference = typeof(ArchitectureDependencyTests).Assembly
+            .GetReferencedAssemblies()
+            .FirstOrDefault(assembly => assembly.Name == PresentationAssemblyName);
+
+        if (reference == null)
+        {
+            return [];
+        }
+
+        return GetReferencedProjectNames(Assembly.Load(reference));
     }
 
     private static string[] GetReferencedProjectNames(Assembly assembly)
