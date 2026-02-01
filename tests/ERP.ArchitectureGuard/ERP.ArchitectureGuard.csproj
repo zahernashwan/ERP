@@ -19,6 +19,5 @@
     <ProjectReference Include="..\..\src\ERP.Domain\ERP.Domain.csproj" />
     <ProjectReference Include="..\..\src\ERP.Application\ERP.Application.csproj" />
     <ProjectReference Include="..\..\src\ERP.Infrastructure\ERP.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj" />
   </ItemGroup>
 </Project>

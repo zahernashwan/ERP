@@ -5,7 +5,7 @@ namespace ERP.Domain.Accounting.Aggregates.Accounts;
 
 public sealed class Account : Entity<AccountId>
 {
-    private Account(AccountId id, AccountNumber number, string name, AccountType type)
+    private Account(AccountId id, AccountNumber number, AccountName name, AccountType type)
         : base(id)
     {
         Number = number;
@@ -15,11 +15,11 @@ public sealed class Account : Entity<AccountId>
     }
 
     public AccountNumber Number { get; private set; }
-    public string Name { get; private set; }
+    public AccountName Name { get; private set; }
     public AccountType Type { get; private set; }
     public bool IsActive { get; private set; }
 
-    public static Account Open(AccountId id, AccountNumber number, string name, AccountType type)
+    internal static Account Create(AccountId id, AccountNumber number, AccountName name, AccountType type)
     {
         if (id is null)
         {
@@ -31,32 +31,27 @@ public sealed class Account : Entity<AccountId>
             throw new ArgumentNullException(nameof(number));
         }
 
-        if (string.IsNullOrWhiteSpace(name))
+        if (name is null)
         {
-            throw new InvalidAccountException("Account name is required.");
+            throw new ArgumentNullException(nameof(name));
         }
 
-        return new Account(id, number, name.Trim(), type);
+        return new Account(id, number, name, type);
     }
 
-    public void Rename(string name)
+    internal void Rename(AccountName name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new InvalidAccountException("Account name is required.");
-        }
-
-        Name = name.Trim();
+        Name = name ?? throw new ArgumentNullException(nameof(name));
     }
 
-    public void ChangeNumber(AccountNumber number)
+    internal void ChangeNumber(AccountNumber number)
     {
         Number = number ?? throw new ArgumentNullException(nameof(number));
     }
 
-    public void Deactivate() => IsActive = false;
+    internal void Deactivate() => IsActive = false;
 
-    public void Activate() => IsActive = true;
+    internal void Activate() => IsActive = true;
 }
 
 public enum AccountType
