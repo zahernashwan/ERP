@@ -1,4 +1,4 @@
-using ERP.Application;
+﻿using ERP.Application;
 using ERP.Application.Accounting.Journals;
 using ERP.Application.Accounting.Journals.PostJournal;
 using ERP.Domain.Accounting.Aggregates.Journals;
@@ -14,12 +14,13 @@ public sealed class PostJournalHandlerTests
     {
         var repo = new FakeJournalRepository();
         var uow = new FakeUnitOfWork();
-        
+
         // First create a journal with some lines
         var journalId = JournalId.New();
         var journal = Journal.Start(journalId, JournalNumber.From("JV-0001"), new DateOnly(2026, 1, 1), "ref");
         var accountId = AccountId.New();
-        var amount = Money.FromDecimal(100, Currency.USD);
+        var currency = Currency.FromCode("USD");
+        var amount = new Money(100m, currency);
         journal.AddDebit(accountId, amount, "Test debit");
         journal.AddCredit(accountId, amount, "Test credit");
         await repo.AddAsync(journal, CancellationToken.None);
@@ -37,7 +38,7 @@ public sealed class PostJournalHandlerTests
 
     private sealed class FakeJournalRepository : IJournalRepository
     {
-        private readonly Dictionary<JournalId, Journal> _journals = new();
+        private readonly Dictionary<JournalId, Journal> _journals = [];
 
         public Task AddAsync(Journal journal, CancellationToken cancellationToken)
         {
