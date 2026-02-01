@@ -8,6 +8,8 @@ Guards architectural boundaries across the solution (layering rules, forbidden d
 - Fails the build if the dependency graph violates the intended architecture.
 
 ## Run
+From the repository root:
+
 ```bash
-dotnet test -c Release
+dotnet test -c Release tests/ERP.ArchitectureGuard
 ```

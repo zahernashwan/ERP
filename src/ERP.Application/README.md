@@ -87,6 +87,13 @@ Queries return DTOs/read models and do not mutate domain state.
 
 Important: the current handlers are plain classes and do **not** implement MediatR `IRequestHandler` yet. Use cases are currently invoked by calling `HandleAsync(...)` directly on the handler instance.
 
+## Build
+From the repository root:
+
+```bash
+dotnet build -c Release src/ERP.Application
+```
+
 ## Notes
 - Application code should remain framework-light and depend on abstractions.
 - Infrastructure provides implementations of repositories and `IUnitOfWork`.

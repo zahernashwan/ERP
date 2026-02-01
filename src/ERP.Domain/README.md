@@ -80,3 +80,10 @@ Primary namespace: `ERP.Domain.Accounting.*`
 
 ## Testing
 Domain behaviors are verified in `tests/ERP.Domain.Tests`.
+
+## Build
+From the repository root:
+
+```bash
+dotnet build -c Release src/ERP.Domain
+```

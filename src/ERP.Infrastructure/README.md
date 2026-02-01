@@ -22,6 +22,13 @@ This project currently provides an in-memory persistence implementation used for
 - `InMemoryJournalRepository` stores journals in-process. Data is not persisted between runs.
 - This layer should remain swappable: real persistence (e.g. EF Core + SQL) can replace the in-memory implementation without changing the Application layer.
 
+## Build
+From the repository root:
+
+```bash
+dotnet build -c Release src/ERP.Infrastructure
+```
+
 ## Extension points (next)
 - Replace in-memory persistence with a database-backed implementation (EF Core), keeping the same Application interfaces.
 - Add integrations (messaging, files, external services) behind Application abstractions.

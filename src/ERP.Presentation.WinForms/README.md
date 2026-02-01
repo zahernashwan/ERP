@@ -44,6 +44,19 @@ The DI-backed entrypoint is `ERP.Bootstrapper` which resolves `MainForm` from th
 
 `ERP.Presentation.WinForms/Program.cs` exists for local runs as a fallback, but it is not the intended entrypoint for production.
 
+## Run
+Preferred (composition root):
+
+```bash
+dotnet run --project src/ERP.Bootstrapper
+```
+
+Fallback (presentation-only):
+
+```bash
+dotnet run --project src/ERP.Presentation.WinForms
+```
+
 ## Project verification (deep check)
 - `dotnet build` succeeded
 - `dotnet test` succeeded (including `ERP.ArchitectureGuard`)

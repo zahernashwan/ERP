@@ -12,6 +12,8 @@ Tests for `ERP.Application` use cases (CQRS handlers).
 - Prefer fakes over mocks where practical.
 
 ## Run
+From the repository root:
+
 ```bash
-dotnet test -c Release
+dotnet test -c Release tests/ERP.Application.Tests
 ```

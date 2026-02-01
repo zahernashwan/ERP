@@ -13,6 +13,8 @@ Unit tests for `ERP.Domain`.
 - Avoid infrastructure/IO dependencies.
 
 ## Run
+From the repository root:
+
 ```bash
-dotnet test -c Release
+dotnet test -c Release tests/ERP.Domain.Tests
 ```
