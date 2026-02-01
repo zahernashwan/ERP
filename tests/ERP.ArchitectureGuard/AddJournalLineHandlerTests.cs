@@ -1,4 +1,4 @@
-using ERP.Application;
+﻿using ERP.Application;
 using ERP.Application.Accounting.Journals;
 using ERP.Application.Accounting.Journals.AddJournalLine;
 using ERP.Domain.Accounting.Aggregates.Journals;
@@ -14,14 +14,15 @@ public sealed class AddJournalLineHandlerTests
     {
         var repo = new FakeJournalRepository();
         var uow = new FakeUnitOfWork();
-        
+
         var journalId = JournalId.New();
         var journal = Journal.Start(journalId, JournalNumber.From("JV-0001"), new DateOnly(2026, 1, 1), "ref");
         await repo.AddAsync(journal, CancellationToken.None);
 
         var handler = new AddJournalLineHandler(repo, uow);
         var accountId = AccountId.New();
-        var amount = Money.FromDecimal(150, Currency.USD);
+        var currency = Currency.FromCode("USD");
+        var amount = new Money(150m, currency);
         var command = new AddJournalLineCommand(journalId, accountId, amount, true, "Test debit", null);
 
         await handler.HandleAsync(command, CancellationToken.None);
@@ -37,14 +38,15 @@ public sealed class AddJournalLineHandlerTests
     {
         var repo = new FakeJournalRepository();
         var uow = new FakeUnitOfWork();
-        
+
         var journalId = JournalId.New();
         var journal = Journal.Start(journalId, JournalNumber.From("JV-0002"), new DateOnly(2026, 1, 2), "ref");
         await repo.AddAsync(journal, CancellationToken.None);
 
         var handler = new AddJournalLineHandler(repo, uow);
         var accountId = AccountId.New();
-        var amount = Money.FromDecimal(200, Currency.USD);
+        var currency = Currency.FromCode("USD");
+        var amount = new Money(200m, currency);
         var command = new AddJournalLineCommand(journalId, accountId, amount, false, "Test credit", null);
 
         await handler.HandleAsync(command, CancellationToken.None);
@@ -60,7 +62,7 @@ public sealed class AddJournalLineHandlerTests
     {
         var repo = new FakeJournalRepository();
         var uow = new FakeUnitOfWork();
-        
+
         var journalId = JournalId.New();
         var journal = Journal.Start(journalId, JournalNumber.From("JV-0003"), new DateOnly(2026, 1, 3), "ref");
         await repo.AddAsync(journal, CancellationToken.None);
@@ -68,7 +70,8 @@ public sealed class AddJournalLineHandlerTests
         var handler = new AddJournalLineHandler(repo, uow);
         var accountId = AccountId.New();
         var projectId = ProjectId.New();
-        var amount = Money.FromDecimal(300, Currency.USD);
+        var currency = Currency.FromCode("USD");
+        var amount = new Money(300m, currency);
         var command = new AddJournalLineCommand(journalId, accountId, amount, true, "Project expense", projectId);
 
         await handler.HandleAsync(command, CancellationToken.None);
@@ -81,7 +84,7 @@ public sealed class AddJournalLineHandlerTests
 
     private sealed class FakeJournalRepository : IJournalRepository
     {
-        private readonly Dictionary<JournalId, Journal> _journals = new();
+        private readonly Dictionary<JournalId, Journal> _journals = [];
 
         public Task AddAsync(Journal journal, CancellationToken cancellationToken)
         {
