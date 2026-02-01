@@ -2,7 +2,6 @@
 using ERP.Application;
 using ERP.Domain;
 using ERP.Infrastructure;
-using ERP.Presentation.WinForms;
 using Xunit;
 
 namespace ERP.ArchitectureGuard;
