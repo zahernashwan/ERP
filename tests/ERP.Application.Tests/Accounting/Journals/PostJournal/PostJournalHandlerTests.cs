@@ -5,7 +5,7 @@ using ERP.Domain.Accounting.Aggregates.Journals;
 using ERP.Domain.Accounting.ValueObjects;
 using Xunit;
 
-namespace ERP.ArchitectureGuard;
+namespace ERP.Application.Tests.Accounting.Journals.PostJournal;
 
 public sealed class PostJournalHandlerTests
 {
@@ -15,12 +15,12 @@ public sealed class PostJournalHandlerTests
         var repo = new FakeJournalRepository();
         var uow = new FakeUnitOfWork();
 
-        // First create a journal with some lines
         var journalId = JournalId.New();
         var journal = Journal.Start(journalId, JournalNumber.From("JV-0001"), new DateOnly(2026, 1, 1), "ref");
         var accountId = AccountId.New();
         var currency = Currency.FromCode("USD");
         var amount = new Money(100m, currency);
+
         journal.AddDebit(accountId, amount, "Test debit");
         journal.AddCredit(accountId, amount, "Test credit");
         await repo.AddAsync(journal, CancellationToken.None);

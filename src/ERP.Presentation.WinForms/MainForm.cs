@@ -2,7 +2,7 @@
 
 namespace ERP.Presentation.WinForms;
 
-public sealed class MainForm : Form
+public sealed partial class MainForm : Form
 {
     public MainForm()
     {
