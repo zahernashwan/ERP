@@ -10,14 +10,16 @@ public sealed class Journal : Entity<JournalId>
     private readonly List<DomainEvent> _domainEvents = new();
     private Currency? _currency;
 
-    private Journal(JournalId id, DateOnly accountingDate, string? reference)
+    private Journal(JournalId id, JournalNumber number, DateOnly accountingDate, string? reference)
         : base(id)
     {
+        Number = number;
         AccountingDate = accountingDate;
         Reference = reference;
         Status = JournalStatus.Draft;
     }
 
+    public JournalNumber Number { get; private set; }
     public DateOnly AccountingDate { get; private set; }
     public string? Reference { get; private set; }
     public JournalStatus Status { get; private set; }
@@ -25,14 +27,24 @@ public sealed class Journal : Entity<JournalId>
     public IReadOnlyCollection<JournalLine> Lines => _lines.AsReadOnly();
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public static Journal Start(JournalId id, DateOnly accountingDate, string? reference)
+    public static Journal Start(JournalId id, JournalNumber number, DateOnly accountingDate, string? reference)
     {
         if (id is null)
         {
             throw new ArgumentNullException(nameof(id));
         }
 
-        return new Journal(id, accountingDate, reference?.Trim());
+        if (number is null)
+        {
+            throw new ArgumentNullException(nameof(number));
+        }
+
+        if (accountingDate == default)
+        {
+            throw new ArgumentOutOfRangeException(nameof(accountingDate), "Accounting date is required.");
+        }
+
+        return new Journal(id, number, accountingDate, reference?.Trim());
     }
 
     public void AddDebit(AccountId accountId, Money amount, string? description = null)
