@@ -1,0 +1,6 @@
+﻿<Project>
+  <PropertyGroup>
+    <!-- Allows restoring/building net*-windows projects on non-Windows CI runners. -->
+    <EnableWindowsTargeting Condition="'$(EnableWindowsTargeting)' == ''">true</EnableWindowsTargeting>
+  </PropertyGroup>
+</Project>
