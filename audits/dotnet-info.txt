@@ -1,0 +1,78 @@
+﻿.NET SDK:
+ Version:           9.0.308
+ Commit:            46e170c517
+ Workload version:  9.0.300-manifests.6f9c3023
+ MSBuild version:   17.14.28+09c1be848
+
+Runtime Environment:
+ OS Name:     Windows
+ OS Version:  10.0.26300
+ OS Platform: Windows
+ RID:         win-x64
+ Base Path:   C:\Program Files\dotnet\sdk\9.0.308\
+
+.NET workloads installed:
+ [maui-windows]
+   Installation Source: VS 17.14.36717.8
+   Manifest Version:    9.0.111/9.0.100
+   Manifest Path:       C:\Program Files\dotnet\sdk-manifests\9.0.100\microsoft.net.sdk.maui\9.0.111\WorkloadManifest.json
+   Install Type:              Msi
+
+ [maccatalyst]
+   Installation Source: VS 17.14.36717.8
+   Manifest Version:    26.0.9752/9.0.100
+   Manifest Path:       C:\Program Files\dotnet\sdk-manifests\9.0.100\microsoft.net.sdk.maccatalyst\26.0.9752\WorkloadManifest.json
+   Install Type:              Msi
+
+ [ios]
+   Installation Source: VS 17.14.36717.8
+   Manifest Version:    26.0.9752/9.0.100
+   Manifest Path:       C:\Program Files\dotnet\sdk-manifests\9.0.100\microsoft.net.sdk.ios\26.0.9752\WorkloadManifest.json
+   Install Type:              Msi
+
+ [android]
+   Installation Source: VS 17.14.36717.8
+   Manifest Version:    35.0.78/9.0.100
+   Manifest Path:       C:\Program Files\dotnet\sdk-manifests\9.0.100\microsoft.net.sdk.android\35.0.78\WorkloadManifest.json
+   Install Type:              Msi
+
+Configured to use loose manifests when installing new manifests.
+
+Host:
+  Version:      9.0.11
+  Architecture: x64
+  Commit:       fa7cdded37
+
+.NET SDKs installed:
+  8.0.417 [C:\Program Files\dotnet\sdk]
+  9.0.308 [C:\Program Files\dotnet\sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 7.0.20 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 8.0.22 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 8.0.23 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 9.0.11 [C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 7.0.20 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.22 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.23 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.NETCore.App 9.0.11 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
+  Microsoft.WindowsDesktop.App 7.0.20 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 8.0.22 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 8.0.23 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+  Microsoft.WindowsDesktop.App 9.0.11 [C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App]
+
+Other architectures found:
+  x86   [C:\Program Files (x86)\dotnet]
+    registered at [HKLM\SOFTWARE\dotnet\Setup\InstalledVersions\x86\InstallLocation]
+
+Environment variables:
+  Not set
+
+global.json file:
+  Not found
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download
