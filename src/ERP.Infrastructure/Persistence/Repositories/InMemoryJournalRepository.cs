@@ -4,9 +4,9 @@ using ERP.Domain.Accounting.ValueObjects;
 
 namespace ERP.Infrastructure.Persistence.Repositories;
 
-public sealed class InMemoryJournalRepository : IJournalRepository
+public sealed class InMemoryJournalRepository : IJournalRepository, IJournalReadRepository
 {
-    private static readonly Dictionary<JournalId, Journal> _journals = new();
+    private static readonly Dictionary<JournalId, Journal> _journals = [];
 
     public Task AddAsync(Journal journal, CancellationToken cancellationToken)
     {
@@ -22,5 +22,11 @@ public sealed class InMemoryJournalRepository : IJournalRepository
         }
 
         throw new InvalidOperationException($"Journal with id {journalId.Value} not found.");
+    }
+
+    public Task<IReadOnlyList<Journal>> GetAllAsync(CancellationToken cancellationToken)
+    {
+        IReadOnlyList<Journal> result = [.. _journals.Values];
+        return Task.FromResult(result);
     }
 }
