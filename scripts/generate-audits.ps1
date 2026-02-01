@@ -1,10 +1,10 @@
 ﻿$ErrorActionPreference = 'Stop'
 
-# Stub script to satisfy CI workflow.
-# Replace this with your real audit generation logic (SBOM, dependency audit, license audit, etc.).
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$outputDir = Join-Path $repoRoot 'audits'
 
-Write-Host "generate-audits.ps1: no-op (placeholder)"
+New-Item -ItemType Directory -Force -Path $outputDir | Out-Null
 
-# Example: you can uncomment later if you want to generate dependency list
-# dotnet --info
-# dotnet list package
+dotnet --info | Out-File (Join-Path $outputDir 'dotnet-info.txt') -Encoding utf8
+dotnet list package --include-transitive | Out-File (Join-Path $outputDir 'nuget-packages.txt') -Encoding utf8
+dotnet list package --vulnerable --include-transitive | Out-File (Join-Path $outputDir 'dotnet-vulnerable.txt') -Encoding utf8
