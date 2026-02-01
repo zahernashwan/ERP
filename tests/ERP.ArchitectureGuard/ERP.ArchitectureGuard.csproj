@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <IsTestProject>true</IsTestProject>
@@ -19,5 +19,6 @@
     <ProjectReference Include="..\..\src\ERP.Domain\ERP.Domain.csproj" />
     <ProjectReference Include="..\..\src\ERP.Application\ERP.Application.csproj" />
     <ProjectReference Include="..\..\src\ERP.Infrastructure\ERP.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj" />
   </ItemGroup>
 </Project>

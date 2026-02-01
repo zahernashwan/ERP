@@ -1,5 +1,4 @@
-using System;
-using System.Windows.Forms;
+﻿using System;
 
 namespace ERP.Presentation.WinForms;
 
@@ -9,6 +8,6 @@ internal static class Program
     private static void Main()
     {
         ApplicationConfiguration.Initialize();
-        Application.Run(new MainForm());
+        System.Windows.Forms.Application.Run(new MainForm());
     }
 }
