@@ -5,21 +5,23 @@ namespace ERP.Domain.Accounting.Aggregates.Journals;
 
 public sealed class JournalLine : Entity<Guid>
 {
-    private JournalLine(Guid id, AccountId accountId, Money debit, Money credit, string? description)
+    private JournalLine(Guid id, AccountId accountId, Money debit, Money credit, string? description, ProjectId? projectId = null)
         : base(id)
     {
         AccountId = accountId;
         Debit = debit;
         Credit = credit;
         Description = description;
+        ProjectId = projectId;
     }
 
     public AccountId AccountId { get; }
     public Money Debit { get; }
     public Money Credit { get; }
     public string? Description { get; }
+    public ProjectId? ProjectId { get; }
 
-    public static JournalLine CreateDebit(AccountId accountId, Money amount, string? description)
+    public static JournalLine CreateDebit(AccountId accountId, Money amount, string? description, ProjectId? projectId = null)
     {
         ValidateAccount(accountId);
         ValidateAmount(amount);
@@ -29,10 +31,10 @@ public sealed class JournalLine : Entity<Guid>
             throw new InvalidJournalLineException("Debit amount must be greater than zero.");
         }
 
-        return new JournalLine(Guid.NewGuid(), accountId, amount, Money.Zero(amount.Currency), description);
+        return new JournalLine(Guid.NewGuid(), accountId, amount, Money.Zero(amount.Currency), description, projectId);
     }
 
-    public static JournalLine CreateCredit(AccountId accountId, Money amount, string? description)
+    public static JournalLine CreateCredit(AccountId accountId, Money amount, string? description, ProjectId? projectId = null)
     {
         ValidateAccount(accountId);
         ValidateAmount(amount);
@@ -42,7 +44,7 @@ public sealed class JournalLine : Entity<Guid>
             throw new InvalidJournalLineException("Credit amount must be greater than zero.");
         }
 
-        return new JournalLine(Guid.NewGuid(), accountId, Money.Zero(amount.Currency), amount, description);
+        return new JournalLine(Guid.NewGuid(), accountId, Money.Zero(amount.Currency), amount, description, projectId);
     }
 
     private static void ValidateAccount(AccountId accountId)
