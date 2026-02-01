@@ -1,13 +1,13 @@
-# 📗 ERP.Application — طبقة حالات الاستخدام
+# 📗 ERP.Application — Use Cases Layer
 
-## الهدف
-تنسق طبقة التطبيق (Application) حالات الاستخدام وتنسق العمل بين تجمعات النطاق والبنية التحتية.
+## Purpose
+The Application layer orchestrates use cases and coordinates work between domain aggregates and infrastructure.
 
-## المسؤوليات
-- تنفيذ حالات الاستخدام باستخدام CQRS خفيف (الأوامر تُغيّر الحالة؛ الاستعلامات لا تُغيّر).
-- تحديد حدود المعاملات وسياسات الاتساق عبر التجمعات.
-- استهلاك أحداث النطاق لتفعيل سير العمل على مستوى التطبيق.
+## Responsibilities
+- Implement use cases using lightweight CQRS (commands mutate; queries do not).
+- Define transaction boundaries and consistency policies across aggregates.
+- Consume domain events to trigger application-level workflows.
 
-## الحدود
-- لا قواعد أعمال أساسية؛ تلك موجودة في النطاق.
-- لا تنفيذات بنية تحتية مباشرة أو مخاوف واجهة مستخدم.
+## Boundaries
+- No core business rules; those live in the Domain.
+- No direct infrastructure implementations or UI concerns.

@@ -1,11 +1,11 @@
-# 📕 ERP.Presentation.WinForms — طبقة واجهة المستخدم
+# 📕 ERP.Presentation.WinForms — UI Layer
 
-## الهدف
-توفر طبقة العرض WinForms واجهة المستخدم باستخدام نهج Supervising Controller / Passive View.
+## Purpose
+The WinForms Presentation layer provides the user interface using a Supervising Controller / Passive View approach.
 
-## المسؤوليات
-- طرق العرض (النماذج) تعرض البيانات وتثير أحداث واجهة المستخدم.
-- وحدات التحكم (Controllers) تنسق حالات استخدام التطبيق وتحدّث طرق العرض.
+## Responsibilities
+- Views (Forms) display data and raise UI events.
+- Controllers coordinate Application use cases and update views.
 
-## الحدود
-- لا منطق أعمال، لا قواعد نطاق، ولا وصول مباشر للبنية التحتية.
+## Boundaries
+- No business logic, domain rules, or direct infrastructure access.
