@@ -1,6 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <TargetFramework>net8.0-windows</TargetFramework>
+    <DefineConstants>WINDOWS</DefineConstants>
+    <IsTestProject>true</IsTestProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+    <TargetFramework>net8.0</TargetFramework>
     <IsTestProject>true</IsTestProject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -19,6 +26,8 @@
     <ProjectReference Include="..\..\src\ERP.Domain\ERP.Domain.csproj" />
     <ProjectReference Include="..\..\src\ERP.Application\ERP.Application.csproj" />
     <ProjectReference Include="..\..\src\ERP.Infrastructure\ERP.Infrastructure.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(OS)' == 'Windows_NT'">
     <ProjectReference Include="..\..\src\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj" />
   </ItemGroup>
 </Project>

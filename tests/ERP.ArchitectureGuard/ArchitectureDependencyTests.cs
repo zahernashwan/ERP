@@ -39,12 +39,14 @@ public class ArchitectureDependencyTests
         Assert.DoesNotContain("ERP.Presentation.WinForms", references);
     }
 
+#if WINDOWS
     [Fact]
     public void Presentation_Should_Not_Depend_On_Infrastructure()
     {
         var references = GetReferencedProjectNames(typeof(ERP.Presentation.WinForms.AssemblyMarker).Assembly);
         Assert.DoesNotContain("ERP.Infrastructure", references);
     }
+#endif
 
     private static string[] GetReferencedProjectNames(Assembly assembly)
     {
