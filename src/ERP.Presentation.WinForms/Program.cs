@@ -1,5 +1,4 @@
-using System;
-using System.Windows.Forms;
+﻿using System;
 
 namespace ERP.Presentation.WinForms;
 
