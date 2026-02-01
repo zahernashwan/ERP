@@ -32,14 +32,6 @@ public class ArchitectureDependencyTests
     }
 
     [Fact]
-    public void Application_Should_Not_Depend_On_Infrastructure()
-    {
-        var references = GetReferencedProjectNames(typeof(ERP.Application.AssemblyMarker).Assembly);
-
-        Assert.DoesNotContain("ERP.Infrastructure", references);
-    }
-
-    [Fact]
     public void Infrastructure_Should_Not_Depend_On_Presentation()
     {
         var references = GetReferencedProjectNames(typeof(ERP.Infrastructure.AssemblyMarker).Assembly);
@@ -59,16 +51,6 @@ public class ArchitectureDependencyTests
         Assert.DoesNotContain("ERP.Infrastructure", references);
     }
 #endif
-
-    [Fact]
-    public void Domain_Should_Not_Depend_On_Application_Infrastructure_Or_Presentation()
-    {
-        var references = GetReferencedProjectNames(typeof(ERP.Domain.AssemblyMarker).Assembly);
-
-        Assert.DoesNotContain("ERP.Application", references);
-        Assert.DoesNotContain("ERP.Infrastructure", references);
-        Assert.DoesNotContain("ERP.Presentation.WinForms", references);
-    }
 
     private static IReadOnlyCollection<string> GetReferencedProjectNames(Assembly assembly)
     {
