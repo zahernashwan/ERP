@@ -5,7 +5,7 @@ using ERP.Domain.Accounting.Aggregates.Journals;
 using ERP.Domain.Accounting.ValueObjects;
 using Xunit;
 
-namespace ERP.ArchitectureGuard;
+namespace ERP.Application.Tests.Accounting.Journals.AddJournalLine;
 
 public sealed class AddJournalLineHandlerTests
 {

@@ -5,7 +5,7 @@ using ERP.Domain.Accounting.Aggregates.Journals;
 using ERP.Domain.Accounting.ValueObjects;
 using Xunit;
 
-namespace ERP.ArchitectureGuard;
+namespace ERP.Application.Tests.Accounting.Journals.StartJournal;
 
 public sealed class StartJournalHandlerTests
 {
@@ -32,7 +32,7 @@ public sealed class StartJournalHandlerTests
     private sealed class FakeJournalRepository : IJournalRepository
     {
         public Journal? Added { get; private set; }
-        private readonly Dictionary<JournalId, Journal> _journals = new();
+        private readonly Dictionary<JournalId, Journal> _journals = [];
 
         public Task AddAsync(Journal journal, CancellationToken cancellationToken)
         {

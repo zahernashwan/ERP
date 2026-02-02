@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ERP.Application\ERP.Application.csproj" />
+		<ProjectReference Include="..\ERP.Domain\ERP.Domain.csproj" />
+		<ProjectReference Include="..\ERP.Infrastructure\ERP.Infrastructure.csproj" />
+		<ProjectReference Include="..\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+	</ItemGroup>
+</Project>

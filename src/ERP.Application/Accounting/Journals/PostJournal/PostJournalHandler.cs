@@ -18,7 +18,7 @@ public sealed class PostJournalHandler
         ArgumentNullException.ThrowIfNull(command);
 
         var journal = await _journalRepository.GetByIdAsync(command.JournalId, cancellationToken);
-        
+
         journal.Post();
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -3,7 +3,7 @@ using ERP.Domain.Accounting.Exceptions;
 using ERP.Domain.Accounting.ValueObjects;
 using Xunit;
 
-namespace ERP.ArchitectureGuard;
+namespace ERP.Domain.Tests.Accounting.Journals;
 
 public sealed class JournalTests
 {
