@@ -15,5 +15,5 @@ Tests for `ERP.Application` use cases (CQRS handlers).
 From the repository root:
 
 ```bash
-dotnet test -c Release tests/ERP.Application.Tests
+dotnet test -c Release tests/ERP.Application.Tests/ERP.Application.Tests.csproj
 ```

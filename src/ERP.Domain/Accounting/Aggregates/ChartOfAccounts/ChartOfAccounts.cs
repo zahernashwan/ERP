@@ -1,4 +1,4 @@
-using ERP.Domain.Accounting.Aggregates.Accounts;
+﻿using ERP.Domain.Accounting.Aggregates.Accounts;
 using ERP.Domain.Accounting.Events;
 using ERP.Domain.Accounting.Exceptions;
 using ERP.Domain.Accounting.ValueObjects;
@@ -25,15 +25,8 @@ public sealed class ChartOfAccounts : Entity<ChartOfAccountsId>
 
     public static ChartOfAccounts Open(ChartOfAccountsId id, ChartName name)
     {
-        if (id is null)
-        {
-            throw new ArgumentNullException(nameof(id));
-        }
-
-        if (name is null)
-        {
-            throw new ArgumentNullException(nameof(name));
-        }
+        ArgumentNullException.ThrowIfNull(id);
+        ArgumentNullException.ThrowIfNull(name);
 
         return new ChartOfAccounts(id, name);
     }
@@ -42,15 +35,8 @@ public sealed class ChartOfAccounts : Entity<ChartOfAccountsId>
     {
         EnsureOpen();
 
-        if (number is null)
-        {
-            throw new ArgumentNullException(nameof(number));
-        }
-
-        if (name is null)
-        {
-            throw new ArgumentNullException(nameof(name));
-        }
+        ArgumentNullException.ThrowIfNull(number);
+        ArgumentNullException.ThrowIfNull(name);
 
         if (_accounts.Any(account => account.Number.Equals(number)))
         {
@@ -74,10 +60,7 @@ public sealed class ChartOfAccounts : Entity<ChartOfAccountsId>
     {
         EnsureOpen();
 
-        if (number is null)
-        {
-            throw new ArgumentNullException(nameof(number));
-        }
+        ArgumentNullException.ThrowIfNull(number);
 
         if (_accounts.Any(account => account.Number.Equals(number)))
         {
@@ -106,7 +89,8 @@ public sealed class ChartOfAccounts : Entity<ChartOfAccountsId>
     public void Rename(ChartName name)
     {
         EnsureOpen();
-        Name = name ?? throw new ArgumentNullException(nameof(name));
+        ArgumentNullException.ThrowIfNull(name);
+        Name = name;
     }
 
     public void Close()
@@ -117,10 +101,7 @@ public sealed class ChartOfAccounts : Entity<ChartOfAccountsId>
 
     private Account FindAccount(AccountId accountId)
     {
-        if (accountId is null)
-        {
-            throw new ArgumentNullException(nameof(accountId));
-        }
+        ArgumentNullException.ThrowIfNull(accountId);
 
         var account = _accounts.SingleOrDefault(item => item.Id.Equals(accountId));
         if (account is null)

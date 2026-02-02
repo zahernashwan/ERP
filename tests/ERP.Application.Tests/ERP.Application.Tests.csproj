@@ -27,4 +27,17 @@
     <ProjectReference Include="..\..\src\ERP.Domain\ERP.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Accounting\Journals\AddJournalLine\" />
+    <Folder Include="Accounting\Journals\GetJournalById\" />
+    <Folder Include="Accounting\Journals\ListJournals\" />
+    <Folder Include="Accounting\Journals\PostJournal\" />
+    <Folder Include="Accounting\Journals\StartJournal\" />
+    <Folder Include="Accounting\Ledgers\CloseLedger\" />
+    <Folder Include="Accounting\Ledgers\GetLedgerById\" />
+    <Folder Include="Accounting\Ledgers\ListLedgers\" />
+    <Folder Include="Accounting\Ledgers\OpenLedger\" />
+    <Folder Include="Accounting\Ledgers\RegisterJournal\" />
+  </ItemGroup>
+
 </Project>

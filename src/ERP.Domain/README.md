@@ -9,9 +9,9 @@ The Domain layer contains the core business model and rules. It must remain pure
 - Raise domain events that describe meaningful business occurrences.
 
 ## Current model (project state)
-This project currently focuses on Accounting as the initial bounded context.
+This project is restricted to **setup/configuration** domain models only.
 
-Primary namespace: `ERP.Domain.Accounting.*`
+Primary namespace: `ERP.Domain.Accounting.*` (setup only)
 
 ### Building blocks
 - Base types:
@@ -20,29 +20,7 @@ Primary namespace: `ERP.Domain.Accounting.*`
   - `DomainEvent`
 
 ### Aggregates and entities
-- Journals
-  - Aggregate Root: `Accounting.Aggregates.Journals.Journal`
-    - Holds `JournalLine` entries
-    - Enforces invariants:
-      - Only Draft journals can be modified
-      - On `Post()`: must have at least one line
-      - On `Post()`: total debit must equal total credit
-      - All lines must share the same currency
-  - Entity: `Accounting.Aggregates.Journals.JournalLine`
-    - Enforces invariants:
-      - Account is required
-      - Amount is required
-      - Debit/Credit amount must be > 0
-
-- Ledgers
-  - Aggregate Root: `Accounting.Aggregates.Ledgers.Ledger`
-    - Enforces invariants when registering journals:
-      - Ledger must be Open
-      - Journal must be Posted
-      - Journal accounting date must be within ledger period
-      - Journal must not be registered twice
-
-- Chart of Accounts
+- Chart of Accounts (Setup)
   - Aggregate Root: `Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts`
     - Enforces invariants:
       - Chart must be Open to mutate
@@ -52,21 +30,17 @@ Primary namespace: `ERP.Domain.Accounting.*`
 
 ### Value Objects
 - `Money` + `Currency`
-- Identifiers: `AccountId`, `JournalId`, `LedgerId`, `ChartOfAccountsId`, `ProjectId`
-- Business values: `JournalNumber`, `AccountNumber`, `AccountName`, `ChartName`, `AccountingPeriod`
+- Identifiers: `AccountId`, `ChartOfAccountsId`, `ProjectId`
+- Business values: `AccountNumber`, `AccountName`, `ChartName`, `AccountingPeriod`
 
 ### Domain Events
-- `JournalPosted(JournalId)`
-- `LedgerClosed(LedgerId)`
 - `ChartOpened(ChartOfAccountsId)`
 - `AccountRegistered(AccountId, AccountNumber)`
 - `AccountDeactivated(AccountId)`
 
 ### Domain Exceptions (invariants)
-- `InvalidJournalLineException`, `UnbalancedJournalException`, `UnpostedJournalException`
-- `JournalOutsidePeriodException`
-- `LedgerClosedException`, `ChartClosedException`
-- `DuplicateAccountNumberException`, `DuplicateJournalRegistrationException`, `AccountNotFoundException`
+- `ChartClosedException`
+- `DuplicateAccountNumberException`, `AccountNotFoundException`
 - `InvalidAccountException`
 
 ## Conventions
@@ -85,5 +59,5 @@ Domain behaviors are verified in `tests/ERP.Domain.Tests`.
 From the repository root:
 
 ```bash
-dotnet build -c Release src/ERP.Domain
+dotnet build -c Release src/ERP.Domain/ERP.Domain.csproj
 ```

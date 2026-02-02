@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\src\ERP.Domain\ERP.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Accounting\Journals\" />
+  </ItemGroup>
+
 </Project>

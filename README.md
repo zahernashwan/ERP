@@ -4,10 +4,24 @@
 
 المتطلبات: .NET SDK 8
 
+> ملاحظة: يوجد ملف `global.json` لتثبيت نسخة الـ SDK المستخدمة في المستودع.
+
+### Restore
+
+```bash
+dotnet restore
+```
+
 ### Build
 
 ```bash
-dotnet build -c Release
+dotnet build ERP.sln -c Release
+```
+
+### Clean (اختياري)
+
+```bash
+dotnet clean ERP.sln
 ```
 
 ### Run
@@ -21,7 +35,21 @@ dotnet run --project src/ERP.Bootstrapper
 ### Test
 
 ```bash
-dotnet test -c Release
+dotnet test ERP.sln -c Release
+```
+
+### Troubleshooting
+
+#### CS0006 (Missing analyzer / metadata file)
+
+إذا ظهرت أخطاء مثل `CS0006` وتشير إلى ملفات داخل `~/.nuget/packages` (مثل analyzers)، فغالبًا السبب هو كاش NuGet تالف/ناقص.
+
+الحل (Windows):
+
+```bash
+dotnet nuget locals global-packages --clear
+dotnet restore
+dotnet build ERP.sln -c Debug
 ```
 
 ## نظرة عامة للمبرمجين الجدد

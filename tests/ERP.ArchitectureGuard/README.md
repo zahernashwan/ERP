@@ -11,5 +11,5 @@ Guards architectural boundaries across the solution (layering rules, forbidden d
 From the repository root:
 
 ```bash
-dotnet test -c Release tests/ERP.ArchitectureGuard
+dotnet test -c Release tests/ERP.ArchitectureGuard/ERP.ArchitectureGuard.csproj
 ```

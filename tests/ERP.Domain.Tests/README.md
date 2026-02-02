@@ -16,5 +16,5 @@ Unit tests for `ERP.Domain`.
 From the repository root:
 
 ```bash
-dotnet test -c Release tests/ERP.Domain.Tests
+dotnet test -c Release tests/ERP.Domain.Tests/ERP.Domain.Tests.csproj
 ```

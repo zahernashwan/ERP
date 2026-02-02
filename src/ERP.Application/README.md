@@ -91,7 +91,7 @@ Important: the current handlers are plain classes and do **not** implement Media
 From the repository root:
 
 ```bash
-dotnet build -c Release src/ERP.Application
+dotnet build -c Release src/ERP.Application/ERP.Application.csproj
 ```
 
 ## Notes

@@ -1,4 +1,4 @@
-namespace ERP.Domain.Accounting.ValueObjects;
+﻿namespace ERP.Domain.Accounting.ValueObjects;
 
 public sealed class Money : ValueObject
 {
@@ -7,10 +7,7 @@ public sealed class Money : ValueObject
 
     public Money(decimal amount, Currency currency)
     {
-        if (currency is null)
-        {
-            throw new ArgumentNullException(nameof(currency));
-        }
+        ArgumentNullException.ThrowIfNull(currency);
 
         if (amount < 0)
         {
@@ -42,10 +39,7 @@ public sealed class Money : ValueObject
 
     private void EnsureSameCurrency(Money other)
     {
-        if (other is null)
-        {
-            throw new ArgumentNullException(nameof(other));
-        }
+        ArgumentNullException.ThrowIfNull(other);
 
         if (!Equals(Currency, other.Currency))
         {

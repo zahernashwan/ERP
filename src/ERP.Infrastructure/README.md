@@ -26,7 +26,7 @@ This project currently provides an in-memory persistence implementation used for
 From the repository root:
 
 ```bash
-dotnet build -c Release src/ERP.Infrastructure
+dotnet build -c Release src/ERP.Infrastructure/ERP.Infrastructure.csproj
 ```
 
 ## Extension points (next)

@@ -14,7 +14,7 @@ var mainForm = scope.ServiceProvider.GetRequiredService<MainForm>();
 var navigation = scope.ServiceProvider.GetRequiredService<INavigationController>();
 
 navigation.Initialize(mainForm);
-navigation.ShowJournals();
+navigation.ShowCharts();
 
 Application.Run(mainForm);
 
