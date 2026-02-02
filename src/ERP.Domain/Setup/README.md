@@ -1,11 +1,16 @@
-﻿# ERP.Domain.Setup
+﻿# ERP.Domain.Setup — تعريف الحقيقة (Setup Definitions: State + Policies + Invariants)
 
 هذا المجلد مخصص **فقط** لموديلات التهيئة (Setup/Configuration) على مستوى الدومين.
 
+> أهم نقطة تأكيد (مهمة جدًا)
+>
+> كل ما في `ERP.Domain.Setup` هو **تعريف الحقيقة** (State + Policies + Invariants)
+> وليس **تشغيل الحقيقة** (Use Cases / Workflows / Persistence / UI).
+
 ## الهدف
 - `ERP.Domain` يحتوي على **قواعد الأعمال الأساسية** (Business Rules) والقيود غير القابلة للكسر (Invariants).
-- `Setup` لا يحتوي أي تنفيذ تشغيلي (لا Use-Cases، لا Repositories، لا UI، لا Infrastructure).
-- الهدف من `Setup` هو بناء **سياسات + قيود** تحكم النظام لاحقًا.
+- `ERP.Domain.Setup` لا يحتوي أي تنفيذ تشغيلي (لا Use Cases، لا Repositories، لا UI، لا Infrastructure).
+- الهدف من `ERP.Domain.Setup` هو بناء **سياسات + قيود** تحكم النظام لاحقًا.
 
 ## قرار التسمية (نهائي)
 
@@ -20,24 +25,53 @@
 
 ## الهيكل التفصيلي الحالي (الموجود فعليًا في المستودع)
 
+> الهدف من الشجرة التالية هو عكس **الموجود فعليًا**. قد تحتوي بعض المجلدات على `*Namespace.cs` فقط كبنية/placeholder، بينما مجلدات أخرى تحتوي موديلات حقيقية + سياسات.
+
+> ملاحظة مهمة: `System/Geography/*` حاليًا يحتوي على ملفات `*Namespace.cs` فقط (Placeholders) بدون موديلات دومين فعلية حتى الآن.
+
 ```
 src/ERP.Domain/Setup
 ├─ README.md
 ├─ SetupNamespace.cs
+├─ Exceptions
+│  ├─ SetupDomainException.cs
+│  ├─ InvalidAccountException.cs
+│  ├─ InvalidBranchException.cs
+│  ├─ InvalidChartOfAccountsException.cs
+│  ├─ InvalidCompanyException.cs
+│  ├─ InvalidCostCenterException.cs
+│  ├─ InvalidCurrencyException.cs
+│  ├─ InvalidFiscalPeriodException.cs
+│  ├─ InvalidGeneralSettingsException.cs
+│  ├─ InvalidInventoryExpiryPolicyException.cs
+│  ├─ InvalidIssueTypeException.cs
+│  ├─ InvalidPricingPolicyException.cs
+│  ├─ InvalidSupplyTypeException.cs
+│  ├─ InvalidTransferTypeException.cs
+│  └─ InvalidUnitOfMeasureException.cs
 │
 ├─ System
 │  ├─ SystemNamespace.cs
 │  ├─ GeneralSettings
+│  │  ├─ GeneralSettings.cs
+│  │  ├─ GeneralSettingsId.cs
 │  │  └─ GeneralSettingsNamespace.cs
 │  ├─ FiscalPeriods
 │  │  ├─ FiscalPeriodsNamespace.cs
-│  │  └─ FiscalPeriod
-│  │     └─ FiscalPeriodNamespace.cs
+│  │  ├─ FiscalPeriod
+│  │  │  ├─ FiscalPeriod.cs
+│  │  │  ├─ FiscalPeriodId.cs
+│  │  │  └─ FiscalPeriodNamespace.cs
+│  │  └─ Policies
+│  │     └─ FiscalPeriodOverlapPolicy.cs
 │  ├─ Currencies
 │  │  ├─ CurrenciesNamespace.cs
 │  │  └─ Currency
+│  │     ├─ Currency.cs
+│  │     ├─ CurrencyId.cs
 │  │     └─ CurrencyNamespace.cs
 │  ├─ InventoryExpiryPolicy
+│  │  ├─ InventoryExpiryPolicy.cs
 │  │  └─ InventoryExpiryPolicyNamespace.cs
 │  ├─ Geography
 │  │  ├─ GeographyNamespace.cs
@@ -50,17 +84,44 @@ src/ERP.Domain/Setup
 │  │  └─ Area
 │  │     └─ AreaNamespace.cs
 │  ├─ Company
-│  │  └─ CompanyNamespace.cs
+│  │  ├─ Company.cs
+│  │  ├─ CompanyId.cs
+│  │  ├─ CompanyName.cs
+│  │  ├─ TaxRegistrationNumber.cs
+│  │  ├─ CompanyNamespace.cs
+│  │  └─ Policies
+│  │     ├─ BranchCodeUniquenessPolicy.cs
+│  │     └─ CompanyPolicy.cs
 │  ├─ Branch
+│  │  ├─ Branch.cs
+│  │  ├─ BranchId.cs
+│  │  ├─ BranchCode.cs
+│  │  ├─ BranchName.cs
 │  │  └─ BranchNamespace.cs
 │  ├─ ChartOfAccounts
+│  │  ├─ ChartOfAccounts.cs
+│  │  ├─ ChartOfAccountsId.cs
+│  │  ├─ ChartName.cs
 │  │  ├─ ChartOfAccountsNamespace.cs
-│  │  └─ Account
-│  │     └─ AccountNamespace.cs
+│  │  ├─ Account
+│  │  │  ├─ Account.cs
+│  │  │  ├─ AccountId.cs
+│  │  │  ├─ AccountNumber.cs
+│  │  │  ├─ AccountName.cs
+│  │  │  ├─ AccountType.cs
+│  │  │  └─ AccountNamespace.cs
+│  │  └─ Policies
+│  │     └─ AccountNumberUniquenessPolicy.cs
 │  └─ CostCenters
 │     ├─ CostCentersNamespace.cs
-│     └─ CostCenter
-│        └─ CostCenterNamespace.cs
+│     ├─ CostCenter
+│     │  ├─ CostCenter.cs
+│     │  ├─ CostCenterId.cs
+│     │  ├─ CostCenterCode.cs
+│     │  ├─ CostCenterName.cs
+│     │  └─ CostCenterNamespace.cs
+│     └─ Policies
+│        └─ CostCenterCodeUniquenessPolicy.cs
 │
 ├─ Accounting
 │  ├─ AccountingNamespace.cs
@@ -71,16 +132,38 @@ src/ERP.Domain/Setup
 │  ├─ InventoryNamespace.cs
 │  ├─ InventoryPolicy
 │  │  └─ InventoryPolicyNamespace.cs
-│  ├─ UnitOfMeasure
-│  │  └─ UnitOfMeasureNamespace.cs
 │  ├─ PricingPolicy
+│  │  ├─ PricingPolicy.cs
 │  │  └─ PricingPolicyNamespace.cs
+│  ├─ UnitOfMeasure
+│  │  ├─ UnitOfMeasure.cs
+│  │  ├─ UnitOfMeasureId.cs
+│  │  ├─ UnitOfMeasureCode.cs
+│  │  ├─ UnitOfMeasureName.cs
+│  │  └─ UnitOfMeasureNamespace.cs
 │  ├─ SupplyType
+│  │  ├─ SupplyType.cs
+│  │  ├─ SupplyTypeId.cs
+│  │  ├─ SupplyTypeCode.cs
+│  │  ├─ SupplyTypeName.cs
 │  │  └─ SupplyTypeNamespace.cs
 │  ├─ IssueType
+│  │  ├─ IssueType.cs
+│  │  ├─ IssueTypeId.cs
+│  │  ├─ IssueTypeCode.cs
+│  │  ├─ IssueTypeName.cs
 │  │  └─ IssueTypeNamespace.cs
-│  └─ TransferType
-│     └─ TransferTypeNamespace.cs
+│  ├─ TransferType
+│  │  ├─ TransferType.cs
+│  │  ├─ TransferTypeId.cs
+│  │  ├─ TransferTypeCode.cs
+│  │  ├─ TransferTypeName.cs
+│  │  └─ TransferTypeNamespace.cs
+│  └─ Policies
+│     ├─ UnitOfMeasureCodeUniquenessPolicy.cs
+│     ├─ SupplyTypeCodeUniquenessPolicy.cs
+│     ├─ IssueTypeCodeUniquenessPolicy.cs
+│     └─ TransferTypeCodeUniquenessPolicy.cs
 │
 ├─ Suppliers
 │  ├─ SuppliersNamespace.cs
@@ -97,9 +180,8 @@ src/ERP.Domain/Setup
       └─ CustomerPolicyNamespace.cs
 ```
 
-> ملاحظة: الملفات `*Namespace.cs` هي placeholder لتثبيت الـ namespaces والمجلدات (بدون أي تنفيذ تشغيلي).
-
-eters | `CustomerPolicy` |
+> ملاحظة: بعض المجلدات (مثل `Accounting/GeneralLedgerPolicy` و `Suppliers/*` و `Customers/CustomerPolicy` و `Inventory/InventoryPolicy`) تحتوي حاليًا على placeholders فقط.
+> بينما مجلدات أخرى (مثل `System/*` و `Inventory/*`) تحتوي على موديلات دومين فعلية (Entities/ValueObjects) وسياسات (`Policies`).
 
 ## Rules
 - كل موديل هنا يجب أن يعبّر عن **حالة + قيود** (State + Invariants).
