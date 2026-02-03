@@ -8,9 +8,12 @@
 > وليس **تشغيل الحقيقة** (Use Cases / Workflows / Persistence / UI).
 
 ## الهدف
-- `ERP.Domain` يحتوي على **قواعد الأعمال الأساسية** (Business Rules) والقيود غير القابلة للكسر (Invariants).
-- `ERP.Domain.Setup` لا يحتوي أي تنفيذ تشغيلي (لا Use Cases، لا Repositories، لا UI، لا Infrastructure).
-- الهدف من `ERP.Domain.Setup` هو بناء **سياسات + قيود** تحكم النظام لاحقًا.
+```plaintext
+ERP.Domain
+└─ Setup
+   ├─ defines: State + Policies + Invariants
+   └─ excludes: Use Cases / Repositories / UI / Infrastructure
+```
 
 ## قرار التسمية (نهائي)
 
@@ -28,6 +31,12 @@
 > الهدف من الشجرة التالية هو عكس **الموجود فعليًا**. قد تحتوي بعض المجلدات على `*Namespace.cs` فقط كبنية/placeholder، بينما مجلدات أخرى تحتوي موديلات حقيقية + سياسات.
 
 > ملاحظة مهمة: `System/Geography/*` حاليًا يحتوي على ملفات `*Namespace.cs` فقط (Placeholders) بدون موديلات دومين فعلية حتى الآن.
+
+> ملاحظة مهمة: `Accounting/GeneralLedgerPolicy` حاليًا يحتوي على `GeneralLedgerPolicyNamespace.cs` فقط (Placeholder) بدون Policy فعلية.
+
+> ملاحظة مهمة: `Inventory/InventoryPolicy` حاليًا يحتوي على `InventoryPolicyNamespace.cs` فقط (Placeholder) بدون Policy فعلية.
+
+> ملاحظة مهمة: `Suppliers/*` و `Customers/CustomerPolicy` حاليًا تحتوي على ملفات `*Namespace.cs` فقط (Placeholders) بدون موديلات/Policies فعلية.
 
 ```
 src/ERP.Domain/Setup

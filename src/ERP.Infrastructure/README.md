@@ -14,6 +14,13 @@ The Infrastructure layer provides technical implementations for persistence and 
 ## Current implementation (project state)
 This project currently provides an in-memory persistence implementation used for development/testing:
 
+```plaintext
+src/ERP.Infrastructure
+├─ DependencyInjection/  # InfrastructureModule.AddInfrastructure(...)
+└─ Persistence/
+   └─ InMemory/          # in-memory repositories + unit of work
+```
+
 - DI registrations: `InfrastructureModule.AddInfrastructure(IServiceCollection)`
   - `IUnitOfWork` -> `InMemoryUnitOfWork` (scoped)
   - `IJournalRepository` -> `InMemoryJournalRepository` (singleton)

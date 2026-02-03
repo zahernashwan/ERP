@@ -1,4 +1,4 @@
-﻿using ChartAggregate = ERP.Domain.Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts;
+﻿using ChartAggregate = ERP.Domain.Operations.Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts;
 
 namespace ERP.Application.Accounting.ChartOfAccounts;
 

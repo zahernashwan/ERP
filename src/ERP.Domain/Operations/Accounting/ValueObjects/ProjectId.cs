@@ -1,4 +1,4 @@
-namespace ERP.Domain.Accounting.ValueObjects;
+﻿namespace ERP.Domain.Operations.Accounting.ValueObjects;
 
 public sealed class ProjectId : ValueObject
 {

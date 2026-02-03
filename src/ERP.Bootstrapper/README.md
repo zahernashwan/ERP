@@ -13,6 +13,12 @@ It wires up Dependency Injection and starts the WinForms UI.
 - Create a DI scope for the running application.
 - Resolve and run `MainForm`.
 
+```plaintext
+src/ERP.Bootstrapper
+├─ Program.cs
+└─ ContainerConfiguration.cs
+```
+
 ## Key files
 - `Program.cs`
   - Starts the application and runs `MainForm` resolved from DI.

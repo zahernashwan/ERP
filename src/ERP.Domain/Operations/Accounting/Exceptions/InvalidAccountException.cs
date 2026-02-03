@@ -1,4 +1,4 @@
-﻿namespace ERP.Domain.Accounting.Exceptions;
+﻿namespace ERP.Domain.Operations.Accounting.Exceptions;
 
 public sealed class InvalidAccountException : DomainException
 {

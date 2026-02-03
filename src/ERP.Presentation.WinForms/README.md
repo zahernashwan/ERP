@@ -15,6 +15,19 @@ The UI follows a Supervising Controller style:
 - Controllers coordinate Application use cases (commands/queries) and update the views
 
 ## Current UI components
+
+```plaintext
+src/ERP.Presentation.WinForms
+├─ MainForm
+├─ Navigation
+│  ├─ INavigationController
+│  └─ NavigationController
+└─ Accounting
+   ├─ Journals   # forms + controller
+   ├─ ChartOfAccounts
+   └─ Ledgers
+```
+
 - `MainForm`
   - Shell/Navigation only
   - Contains menus that trigger navigation actions

@@ -2,10 +2,10 @@
 using ERP.Application.Accounting.ChartOfAccounts;
 using ERP.Application.Accounting.ChartOfAccounts.OpenChart;
 using ERP.Application.Accounting.ChartOfAccounts.RegisterAccount;
-using ERP.Domain.Accounting.Aggregates.Accounts;
-using ChartAggregate = ERP.Domain.Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts;
-using ERP.Domain.Accounting.ValueObjects;
+using ChartAggregate = ERP.Domain.Operations.Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts;
 using Xunit;
+using ERP.Domain.Operations.Accounting.ValueObjects;
+using ERP.Domain.Operations.Accounting.Aggregates.Accounts;
 
 namespace ERP.Application.Tests.Accounting.ChartOfAccounts.RegisterAccount;
 

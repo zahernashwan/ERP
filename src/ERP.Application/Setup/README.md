@@ -236,40 +236,34 @@ public sealed class SetPostingPolicyHandler
 
 ## 4) Use Cases الأساسية (Checklist)
 
-### System
-
-* GeneralSettings: Create / SetPostingPolicy / ChangeBaseCurrency
-* FiscalPeriods: Open / Close
-* Currencies: Register / Rename / Deactivate / Activate
-* Geography: RegisterCountry / RegisterGovernorate / RegisterCity / RegisterArea
-* Company: Create / Rename / SetTaxRegistrationNumber / Deactivate / Activate
-* Branch: Register / Rename / ChangeCode / Deactivate / Activate
-* ChartOfAccounts: Create / Rename / Deactivate / AddAccount
-* CostCenters: Register / Rename / ChangeCode / Deactivate / Activate
-
-### Accounting
-
-* DefineGeneralLedgerPolicy
-
-### Inventory
-
-* DefineInventoryPolicy
-* DefinePricingPolicy
-* DefineInventoryExpiryPolicy
-* UnitOfMeasure: Register / Rename / ChangeCode / Deactivate / Activate
-* SupplyType: Register / Rename / ChangeCode / Deactivate / Activate
-* IssueType: Register / Rename / ChangeCode / Deactivate / Activate
-* TransferType: Register / Rename / ChangeCode / Deactivate / Activate
-
-### Suppliers
-
-* DefineSupplierPolicy
-* DefinePurchasingPolicy
-* DefineCostingMethod
-
-### Customers
-
-* DefineCustomerPolicy
+```plaintext
+ERP.Application.Setup
+├─ System
+│  ├─ GeneralSettings        # Create / SetPostingPolicy / ChangeBaseCurrency
+│  ├─ FiscalPeriods          # Open / Close
+│  ├─ Currencies             # Register / Rename / Deactivate / Activate
+│  ├─ Geography              # RegisterCountry / RegisterGovernorate / RegisterCity / RegisterArea
+│  ├─ Company                # Create / Rename / SetTaxRegistrationNumber / Deactivate / Activate
+│  ├─ Branch                 # Register / Rename / ChangeCode / Deactivate / Activate
+│  ├─ ChartOfAccounts        # Create / Rename / Deactivate / AddAccount
+│  └─ CostCenters            # Register / Rename / ChangeCode / Deactivate / Activate
+├─ Accounting
+│  └─ GeneralLedgerPolicy    # DefineGeneralLedgerPolicy
+├─ Inventory
+│  ├─ InventoryPolicy        # DefineInventoryPolicy
+│  ├─ PricingPolicy          # DefinePricingPolicy
+│  ├─ InventoryExpiryPolicy  # DefineInventoryExpiryPolicy
+│  ├─ UnitOfMeasure          # Register / Rename / ChangeCode / Deactivate / Activate
+│  ├─ SupplyType             # Register / Rename / ChangeCode / Deactivate / Activate
+│  ├─ IssueType              # Register / Rename / ChangeCode / Deactivate / Activate
+│  └─ TransferType           # Register / Rename / ChangeCode / Deactivate / Activate
+├─ Suppliers
+│  ├─ SupplierPolicy         # DefineSupplierPolicy
+│  ├─ PurchasingPolicy       # DefinePurchasingPolicy
+│  └─ CostingMethod          # DefineCostingMethod
+└─ Customers
+   └─ CustomerPolicy         # DefineCustomerPolicy
+```
 
 ---
 

@@ -11,6 +11,14 @@ The Application layer orchestrates use cases and coordinates work between domain
 ## Current implementation (project state)
 The solution currently focuses on Accounting/Journals use cases.
 
+```plaintext
+src/ERP.Application
+└─ Accounting/
+   ├─ Journals/       # commands + queries + handlers (use cases)
+   ├─ ChartOfAccounts/# commands + queries + handlers (use cases)
+   └─ Ledgers/        # commands + queries + handlers (use cases)
+```
+
 ### CQRS building blocks
 - Marker abstractions:
   - `ICommand<TResult>`

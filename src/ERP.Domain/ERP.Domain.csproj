@@ -5,7 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Accounting\Aggregates\Journals\" />
-    <Folder Include="Accounting\Aggregates\Ledgers\" />
+    <Folder Include="Common\" />
+    <Folder Include="Operations\Accounting\Aggregates\Journals\" />
+    <Folder Include="Operations\Accounting\Aggregates\Ledgers\" />
+    <Folder Include="MasterData\" />
   </ItemGroup>
 </Project>

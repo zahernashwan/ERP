@@ -1,5 +1,5 @@
-﻿using ERP.Domain.Accounting.Aggregates.Accounts;
-using ERP.Domain.Accounting.ValueObjects;
+﻿using ERP.Domain.Operations.Accounting.Aggregates.Accounts;
+using ERP.Domain.Operations.Accounting.ValueObjects;
 
 namespace ERP.Application.Accounting.ChartOfAccounts.RegisterAccount;
 

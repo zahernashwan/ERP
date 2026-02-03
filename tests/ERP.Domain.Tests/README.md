@@ -3,6 +3,11 @@
 ## Purpose
 Unit tests for `ERP.Domain`.
 
+```plaintext
+tests/ERP.Domain.Tests
+└─ *.cs  # domain behavior/invariants tests (xUnit)
+```
+
 ## What is tested
 - Aggregate behavior and invariants (e.g. Journals balancing and posting rules).
 - Domain exceptions thrown for invalid operations.

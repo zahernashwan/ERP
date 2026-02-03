@@ -1,9 +1,9 @@
 ﻿using ERP.Application;
 using ERP.Application.Accounting.ChartOfAccounts;
 using ERP.Application.Accounting.ChartOfAccounts.OpenChart;
-using ChartAggregate = ERP.Domain.Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts;
-using ERP.Domain.Accounting.ValueObjects;
+using ChartAggregate = ERP.Domain.Operations.Accounting.Aggregates.ChartOfAccounts.ChartOfAccounts;
 using Xunit;
+using ERP.Domain.Operations.Accounting.ValueObjects;
 
 namespace ERP.Application.Tests.Accounting.ChartOfAccounts.OpenChart;
 
