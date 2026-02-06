@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFrameworks>net8.0;net8.0-windows</TargetFrameworks>
     <IsTestProject>true</IsTestProject>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,6 @@
     <ProjectReference Include="..\..\src\ERP.Domain\ERP.Domain.csproj" />
     <ProjectReference Include="..\..\src\ERP.Application\ERP.Application.csproj" />
     <ProjectReference Include="..\..\src\ERP.Infrastructure\ERP.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj" />
+    <ProjectReference Include="..\..\src\ERP.Presentation.WinForms\ERP.Presentation.WinForms.csproj" Condition="'$(TargetFramework)' == 'net8.0-windows'" />
   </ItemGroup>
 </Project>
