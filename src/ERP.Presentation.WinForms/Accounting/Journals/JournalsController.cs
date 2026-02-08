@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ERP.Application.Accounting.Journals.GetJournalById;
+﻿using ERP.Application.Accounting.Journals.GetJournalById;
 using ERP.Application.Accounting.Journals.ListJournals;
 
 namespace ERP.Presentation.WinForms.Accounting.Journals

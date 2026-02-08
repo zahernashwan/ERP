@@ -97,7 +97,7 @@ public class ArchitectureDependencyTests
             {
                 if (contentWithoutComments.Contains(token, StringComparison.Ordinal))
                 {
-                    violations.Add($"{Path.GetRelativePath(SolutionRoot, file)} contains forbidden token '{token}'.");
+                    violations.Add($"{Path.GetRelativePath(GetSolutionRoot(), file)} contains forbidden token '{token}'.");
                 }
             }
         }
