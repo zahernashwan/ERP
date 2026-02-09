@@ -1,0 +1,21 @@
+# README Template
+
+> ⚠️ هذا الملف قالب فقط — لا يُعرض مباشرة.
+> README.md يُولَّد تلقائياً بواسطة `scripts/generate-readme.sh`.
+
+## البنية
+
+يتم تجميع README.md تلقائياً من جميع ملفات `/docs/**/*.md` بالترتيب التالي:
+
+1. `docs/overview.md` — رؤية عامة
+2. `docs/architecture.md` — البنية المعمارية
+3. `docs/domain/*.md` — طبقة النطاق
+4. `docs/application/*.md` — طبقة التطبيق
+5. `docs/infrastructure/*.md` — طبقة البنية التحتية
+6. `docs/accounting/*.md` — وحدة المحاسبة
+
+## قواعد التوثيق
+
+- كل ملف `.md` يجب أن يبدأ بعنوان `# Title`.
+- لا يُسمح بتعديل `README.md` يدوياً.
+- أي تغيير في التوثيق يتم عبر ملفات `/docs` ثم تشغيل السكربت.
