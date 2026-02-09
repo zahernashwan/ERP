@@ -1,0 +1,33 @@
+name: Docs Validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate doc files have titles
+        run: |
+          failed=0
+          for f in $(find docs -name '*.md' ! -name 'README.template.md'); do
+            if ! grep -qm1 '^# ' "$f"; then
+              echo "❌ Missing '# Title' in $f"
+              failed=1
+            fi
+          done
+          if [ "$failed" -eq 1 ]; then
+            exit 1
+          fi
+          echo "✅ All doc files have titles."
+
+      - name: Verify README.md is auto-generated and up-to-date
+        run: bash scripts/generate-readme.sh --check

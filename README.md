@@ -1,30 +1,26 @@
-﻿# ERP Solution — Clean Architecture Structure
+<!-- AUTO-GENERATED — do not edit manually. Run scripts/generate-readme.sh -->
 
-## Quick start
+# NoufexERP Documentation
 
-المتطلبات: .NET SDK 8
+## Table of Contents
 
-### Build
+- [نظرة عامة — ERP Solution](docs/overview.md)
+- [البنية المعمارية — Clean Architecture + DDD + CQRS](docs/architecture.md)
+- [Aggregates](docs/domain/aggregates.md)
+- [Domain Events](docs/domain/domain-events.md)
+- [Invariants (القيود الجوهرية)](docs/domain/invariants.md)
+- [Commands](docs/application/commands.md)
+- [Queries](docs/application/queries.md)
+- [Use Cases (حالات الاستخدام)](docs/application/use-cases.md)
+- [Integrations (التكاملات الخارجية)](docs/infrastructure/integrations.md)
+- [Persistence (التخزين)](docs/infrastructure/persistence.md)
+- [الدليل المحاسبي (Chart of Accounts)](docs/accounting/chart-of-accounts.md)
+- [مراكز التكلفة (Cost Centers)](docs/accounting/cost-centers.md)
+- [القيود اليومية (Journals)](docs/accounting/journals.md)
 
-```bash
-dotnet build -c Release
-```
+---
 
-### Run
-
-نقطة التشغيل المفضلة (Composition Root):
-
-```bash
-dotnet run --project src/ERP.Bootstrapper
-```
-
-### Test
-
-```bash
-dotnet test -c Release
-```
-
-## نظرة عامة للمبرمجين الجدد
+# نظرة عامة — ERP Solution
 
 هذا المستودع عبارة عن حل (.NET 8) مبني بأسلوب **Clean Architecture** مع WinForms كواجهة مستخدم.
 
@@ -38,7 +34,7 @@ dotnet test -c Release
 - **التقارير**: تقارير الحسابات والمخزون والمشتريات والمبيعات.
 - **إدارة النظام**: المستخدمون والصلاحيات والنسخ الاحتياطي/الاسترجاع.
 
-### شجرة الوظائف (Functional Map)
+## شجرة الوظائف (Functional Map)
 
 > ملاحظة: هذه الشجرة تُستخدم كمرجع نطاق (Scope) للمنتج. التنفيذ الحالي قد يغطي جزءًا منها ويتوسع تدريجيًا.
 
@@ -172,7 +168,37 @@ ERP
    └─ استرجاع نسخة احتياطية
 ```
 
-### خريطة المشاريع (أين تضع الكود؟)
+## Quick Start
+
+المتطلبات: .NET SDK 8
+
+### Build
+
+```bash
+dotnet build -c Release
+```
+
+### Run
+
+نقطة التشغيل المفضلة (Composition Root):
+
+```bash
+dotnet run --project src/ERP.Bootstrapper
+```
+
+### Test
+
+```bash
+dotnet test -c Release
+```
+
+---
+
+# البنية المعمارية — Clean Architecture + DDD + CQRS
+
+هذا الحل يتبع **Clean Architecture** بشكل صارم، ويقسم النظام إلى أربع طبقات واضحة. كل طبقة لها مسؤوليات محددة وحدود صارمة، واتجاه الاعتمادات يكون نحو الداخل فقط.
+
+## خريطة المشاريع (أين تضع الكود؟)
 
 | المشروع | المسار | ماذا يحتوي؟ |
 | --- | --- | --- |
@@ -182,7 +208,7 @@ ERP
 | `ERP.Presentation.WinForms` | `src/ERP.Presentation.WinForms` | الواجهة WinForms (Forms + Controllers) بدون منطق أعمال |
 | `ERP.Bootstrapper` | `src/ERP.Bootstrapper` | نقطة التشغيل/Composition Root: تجميع الطبقات (DI) ثم تشغيل `MainForm` |
 
-### اتجاه الاعتمادات (المسموح فقط)
+## اتجاه الاعتمادات (المسموح فقط)
 
 ```
 Presentation  -> Application -> Domain
@@ -195,7 +221,51 @@ Infrastructure -> Application -> Domain
 - `Infrastructure` ينفّذ هذه الواجهات.
 - `Presentation.WinForms` يتعامل مع `Application` عبر Handlers/Use Cases، ولا يصل للبنية التحتية مباشرة.
 
-### نقطة التشغيل (Entrypoint)
+## الطبقات الأربع
+
+### 1) Domain (ERP.Domain)
+
+**المسؤوليات**
+- تمثيل نموذج الأعمال (Entities / Value Objects / Aggregates عند الحاجة).
+- فرض القواعد والقيود الجوهرية داخل حدود الـ Aggregate فقط.
+- إصدار Domain Events لوصف أحداث الأعمال ذات المعنى.
+
+**الحدود الصارمة**
+- لا أطر عمل، لا بنية تحتية، لا واجهات مستخدم، ولا تخزين بيانات.
+- لا يحتوي على منطق حالات استخدام أو تنسيق عمليات.
+
+### 2) Application (ERP.Application)
+
+**المسؤوليات**
+- تنسيق حالات الاستخدام (Use Cases) وحدود المعاملات.
+- تطبيق CQRS خفيف: **Commands تُغيّر الحالة**، **Queries لا تُغيّر الحالة**.
+- الحفاظ على الاتساق بين الـ Aggregates واستهلاك Domain Events لتفعيل سير العمل.
+
+**الحدود الصارمة**
+- لا قواعد أعمال جوهرية (توجد في Domain فقط).
+- لا تنفيذات تقنية أو تعامل مباشر مع البنية التحتية.
+
+### 3) Infrastructure (ERP.Infrastructure)
+
+**المسؤوليات**
+- تنفيذ التفاصيل التقنية: قواعد البيانات، الرسائل، نظام الملفات، والخدمات الخارجية.
+- توفير تطبيقات الواجهات (Interfaces) المعرفة في الداخل.
+
+**الحدود الصارمة**
+- لا منطق أعمال أو قواعد نطاق.
+- تعتمد للداخل فقط ويمكن استبدالها بسهولة.
+
+### 4) Presentation (ERP.Presentation.WinForms)
+
+**المسؤوليات**
+- عرض البيانات للمستخدم عبر WinForms.
+- اتباع Supervising Controller / Passive View.
+- الـ Controllers تنسق حالات الاستخدام وتحدّث الـ Views.
+
+**الحدود الصارمة**
+- لا منطق أعمال، لا قواعد نطاق، ولا وصول مباشر للبنية التحتية.
+
+## نقطة التشغيل (Entrypoint)
 
 المشروع المعتمد للتشغيل هو `ERP.Bootstrapper` لأنه الـ Composition Root.
 
@@ -203,7 +273,7 @@ Infrastructure -> Application -> Domain
 dotnet run --project src/ERP.Bootstrapper
 ```
 
-### الاختبارات
+## الاختبارات
 
 | المشروع | ماذا يختبر؟ |
 | --- | --- |
@@ -217,67 +287,238 @@ dotnet run --project src/ERP.Bootstrapper
 dotnet test -c Release
 ```
 
-### ملاحظات مهمة عن Application layer (الحالة الحالية)
+## ملاحظات معمارية أساسية
+
+- القواعد التجارية دائماً في Domain.
+- التغييرات في البنية التحتية أو الواجهة لا يجب أن تؤثر على Domain.
+- يتم حقن جميع الاعتمادات صراحةً دون Service Locators.
+
+---
+
+# Aggregates
+
+## المبدأ
+
+الـ Aggregate هو حدود الاتساق (Consistency Boundary) في نموذج الأعمال. كل Aggregate يحمي قواعده الداخلية (invariants) ولا يُعدَّل إلا عبر جذره (Aggregate Root).
+
+## الموقع في الكود
+
+```
+src/ERP.Domain/
+```
+
+## القواعد
+
+- كل Aggregate Root يرث من `Entity` أو يطبّق هوية فريدة.
+- التعديل يتم فقط عبر methods على الـ Root.
+- لا يُسمح بالوصول المباشر للكيانات الداخلية من خارج الـ Aggregate.
+
+---
+
+# Domain Events
+
+## المبدأ
+
+أحداث النطاق تصف **شيئاً حدث بالفعل** في سياق الأعمال. تُستخدم للتواصل بين الـ Aggregates بدون اقتران مباشر.
+
+## الموقع في الكود
+
+```
+src/ERP.Domain/
+```
+
+## القواعد
+
+- الحدث يُصاغ بصيغة الماضي (مثل `JournalPosted`، `AccountCreated`).
+- الحدث لا يحتوي منطق أعمال — بيانات فقط.
+- يتم إصداره من داخل الـ Aggregate Root.
+
+---
+
+# Invariants (القيود الجوهرية)
+
+## المبدأ
+
+الـ Invariants هي القواعد التي يجب أن تكون صحيحة **دائماً** داخل حدود الـ Aggregate. أي عملية تكسر invariant يجب أن تُرفض فوراً.
+
+## الموقع في الكود
+
+```
+src/ERP.Domain/
+```
+
+## القواعد
+
+- يتم فرض الـ invariants داخل الـ Aggregate Root (في constructor أو methods).
+- عند الانتهاك يُرمى Exception واضح.
+- الاختبارات في `tests/ERP.Domain.Tests` تتحقق من كل invariant.
+
+---
+
+# Commands
+
+## المبدأ
+
+الـ Command يمثّل **نية لتغيير الحالة**. كل Command يقابله Handler واحد ينسّق العملية.
+
+## الموقع في الكود
+
+```
+src/ERP.Application/
+```
+
+## القواعد
+
+- Command = كائن بيانات (DTO) يصف العملية المطلوبة.
+- Handler يستدعي الـ Domain ثم يحفظ عبر Repository.
+- لا يُرجع بيانات (أو يرجع ID فقط عند الضرورة).
+
+---
+
+# Queries
+
+## المبدأ
+
+الـ Query يمثّل **طلب قراءة بيانات** بدون تغيير الحالة. يفصل مسار القراءة عن مسار الكتابة (CQRS).
+
+## الموقع في الكود
+
+```
+src/ERP.Application/
+```
+
+## القواعد
+
+- Query = كائن بيانات يصف ما نريد قراءته.
+- Handler يقرأ من Repository ويُرجع DTO.
+- لا يُغيّر حالة أي Aggregate.
+
+---
+
+# Use Cases (حالات الاستخدام)
+
+## المبدأ
+
+حالة الاستخدام تنسّق تدفق العمل بين الـ Domain والـ Infrastructure عبر واجهات محددة.
+
+## الموقع في الكود
+
+```
+src/ERP.Application/
+```
+
+## الحالة الحالية
 
 - يوجد MediatR مسجّل عبر `ApplicationModule.AddApplication(IServiceCollection)`.
 - لكن الـ use-case handlers حاليًا **لا تطبّق** `IRequestHandler`؛ يتم استدعاء `HandleAsync(...)` مباشرة.
 - عند التحول لاحقًا إلى MediatR بشكل كامل، الهدف هو إرسال Commands/Queries عبر `ISender`.
 
-هذا الحل يتبع **Clean Architecture** بشكل صارم، ويقسم النظام إلى أربع طبقات واضحة. كل طبقة لها مسؤوليات محددة وحدود صارمة، واتجاه الاعتمادات يكون نحو الداخل فقط.
+## القواعد
 
-## الطبقات الأربع
+- كل Use Case يقابل Command أو Query واحد.
+- Handler يستخدم `IUnitOfWork` لضمان حدود المعاملة.
+- لا يحتوي منطق أعمال — يفوّضه للـ Domain.
 
-### 1) Domain (ERP.Domain)
-**المسؤوليات**
-- تمثيل نموذج الأعمال (Entities / Value Objects / Aggregates عند الحاجة).
-- فرض القواعد والقيود الجوهرية داخل حدود الـ Aggregate فقط.
-- إصدار Domain Events لوصف أحداث الأعمال ذات المعنى.
+---
 
-**الحدود الصارمة**
-- لا أطر عمل، لا بنية تحتية، لا واجهات مستخدم، ولا تخزين بيانات.
-- لا يحتوي على منطق حالات استخدام أو تنسيق عمليات.
+# Integrations (التكاملات الخارجية)
 
-### 2) Application (ERP.Application)
-**المسؤوليات**
-- تنسيق حالات الاستخدام (Use Cases) وحدود المعاملات.
-- تطبيق CQRS خفيف: **Commands تُغيّر الحالة**، **Queries لا تُغيّر الحالة**.
-- الحفاظ على الاتساق بين الـ Aggregates واستهلاك Domain Events لتفعيل سير العمل.
+## المبدأ
 
-**الحدود الصارمة**
-- لا قواعد أعمال جوهرية (توجد في Domain فقط).
-- لا تنفيذات تقنية أو تعامل مباشر مع البنية التحتية.
+أي تكامل مع أنظمة خارجية (APIs, Message Brokers, File Systems) يُنفَّذ في طبقة Infrastructure.
 
-### 3) Infrastructure (ERP.Infrastructure)
-**المسؤوليات**
-- تنفيذ التفاصيل التقنية: قواعد البيانات، الرسائل، نظام الملفات، والخدمات الخارجية.
-- توفير تطبيقات الواجهات (Interfaces) المعرفة في الداخل.
-
-**الحدود الصارمة**
-- لا منطق أعمال أو قواعد نطاق.
-- تعتمد للداخل فقط ويمكن استبدالها بسهولة.
-
-### 4) Presentation (ERP.Presentation.WinForms)
-**المسؤوليات**
-- عرض البيانات للمستخدم عبر WinForms.
-- اتباع Supervising Controller / Passive View.
-- الـ Controllers تنسق حالات الاستخدام وتحدّث الـ Views.
-
-**الحدود الصارمة**
-- لا منطق أعمال، لا قواعد نطاق، ولا وصول مباشر للبنية التحتية.
-
-## اتجاه الاعتمادات المسموح فقط
-الاعتمادات تتجه نحو الداخل:
+## الموقع في الكود
 
 ```
-Presentation -> Application -> Domain
-Infrastructure -> Application -> Domain
+src/ERP.Infrastructure/
 ```
 
-- **Domain** لا يعتمد على أي طبقة أخرى.
-- **Application** يعتمد على Domain فقط.
-- **Infrastructure** و **Presentation** يعتمدان على Application و/أو Domain لكن لا العكس.
+## القواعد
 
-## ملاحظات معمارية أساسية
-- القواعد التجارية دائماً في Domain.
-- التغييرات في البنية التحتية أو الواجهة لا يجب أن تؤثر على Domain.
-- يتم حقن جميع الاعتمادات صراحةً دون Service Locators.
+- كل تكامل يطبّق واجهة معرّفة في Application.
+- لا يعتمد على طبقة Presentation.
+- يُسجَّل في DI Container عبر `InfrastructureModule`.
+
+---
+
+# Persistence (التخزين)
+
+## المبدأ
+
+طبقة البنية التحتية تنفّذ واجهات التخزين المعرّفة في Application. التنفيذ الحالي يستخدم In-Memory.
+
+## الموقع في الكود
+
+```
+src/ERP.Infrastructure/
+```
+
+## القواعد
+
+- Repository يطبّق واجهة من Application.
+- لا يحتوي منطق أعمال.
+- يمكن استبداله بتنفيذ آخر (EF Core, Dapper, etc.) بدون تأثير على الطبقات الأخرى.
+
+---
+
+# الدليل المحاسبي (Chart of Accounts)
+
+## المبدأ
+
+الدليل المحاسبي هو الهيكل الشجري للحسابات الذي يُنظم جميع العمليات المالية.
+
+## الموقع في الكود
+
+```
+src/ERP.Domain/Accounting/
+```
+
+## القواعد
+
+- كل حساب له رقم فريد ومستوى في الشجرة.
+- الحسابات الأبوية لا تقبل قيوداً مباشرة.
+- يتم ربط الحسابات بمراكز التكلفة عند الحاجة.
+
+---
+
+# مراكز التكلفة (Cost Centers)
+
+## المبدأ
+
+مراكز التكلفة تسمح بتتبع المصاريف والإيرادات على مستوى أدق من الحساب (مثل: فرع، قسم، مشروع).
+
+## الموقع في الكود
+
+```
+src/ERP.Domain/Accounting/
+```
+
+## القواعد
+
+- كل مركز تكلفة له رقم فريد.
+- يمكن ربطه بسطور القيود اليومية.
+- يُستخدم في التقارير التحليلية.
+
+---
+
+# القيود اليومية (Journals)
+
+## المبدأ
+
+القيد اليومي هو الوحدة الأساسية للتسجيل المحاسبي. كل قيد يحتوي سطوراً مدينة ودائنة يجب أن تتوازن.
+
+## الموقع في الكود
+
+```
+src/ERP.Domain/Accounting/
+```
+
+## القواعد
+
+- مجموع المدين = مجموع الدائن (invariant أساسي).
+- القيد يحتوي سطراً واحداً على الأقل.
+- بعد الترحيل لا يمكن التعديل.
+
+---
+
+_Last generated: 2026-02-09 23:47:43 UTC_
