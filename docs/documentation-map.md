@@ -8,6 +8,7 @@
 | --- | --- |
 | [`docs/overview.md`](overview.md) | نظرة عامة على حل ERP وشجرة الوظائف |
 | [`docs/architecture.md`](architecture.md) | البنية المعمارية — Clean Architecture + DDD + CQRS |
+| [`docs/ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md) | ⚠️ القواعد المعمارية الإلزامية — المرجع الحاكم لمراجعات PR |
 | [`docs/README.template.md`](README.template.md) | قالب توليد README.md وقواعد التوثيق |
 | [`docs/documentation-map.md`](documentation-map.md) | هذا الملف — فهرس ملفات التوثيق |
 
@@ -88,5 +89,6 @@
 | --- | --- |
 | [`scripts/generate-readme.sh`](../scripts/generate-readme.sh) | سكربت توليد README.md تلقائياً من ملفات `docs/` |
 | [`.github/workflows/docs-check.yml`](../.github/workflows/docs-check.yml) | سير عمل CI للتحقق من تحديث README.md |
+| [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | تعليمات Copilot — تشير إلى القواعد المعمارية كمرجع حاكم |
 
 _Last Updated: 2026-02-10_

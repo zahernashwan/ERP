@@ -27,7 +27,7 @@ collect_files() {
   local files=()
 
   # Top-level docs first (fixed order)
-  for f in "$DOCS_DIR/overview.md" "$DOCS_DIR/architecture.md" "$DOCS_DIR/documentation-map.md"; do
+  for f in "$DOCS_DIR/overview.md" "$DOCS_DIR/architecture.md" "$DOCS_DIR/ARCHITECTURE_RULES.md" "$DOCS_DIR/documentation-map.md"; do
     [ -f "$f" ] && files+=("$f")
   done
 
