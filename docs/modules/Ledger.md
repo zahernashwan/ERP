@@ -45,3 +45,5 @@ src/ERP.Application/Accounting/Ledgers/
 
 - يحتوي على مراجع للقيود اليومية (`Journal`).
 - يعتمد على `AccountingPeriod` لتحديد صلاحية التسجيل.
+
+_Last Updated: 2026-02-10_

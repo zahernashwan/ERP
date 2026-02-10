@@ -50,3 +50,5 @@ ERP.Domain/
 ```
 tests/ERP.Domain.Tests/
 ```
+
+_Last Updated: 2026-02-10_

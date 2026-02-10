@@ -169,3 +169,5 @@ dotnet run --project src/ERP.Bootstrapper
 ```bash
 dotnet test -c Release
 ```
+
+_Last Updated: 2026-02-10_

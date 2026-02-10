@@ -32,7 +32,7 @@ collect_files() {
   done
 
   # Sub-directories in fixed order
-  for dir in projects modules domain application infrastructure accounting; do
+  for dir in projects modules domain application infrastructure; do
     if [ -d "$DOCS_DIR/$dir" ]; then
       while IFS= read -r f; do
         files+=("$f")

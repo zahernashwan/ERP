@@ -15,3 +15,5 @@ src/ERP.Domain/
 - يتم فرض الـ invariants داخل الـ Aggregate Root (في constructor أو methods).
 - عند الانتهاك يُرمى Exception واضح.
 - الاختبارات في `tests/ERP.Domain.Tests` تتحقق من كل invariant.
+
+_Last Updated: 2026-02-10_

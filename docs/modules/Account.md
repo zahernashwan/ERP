@@ -43,3 +43,5 @@ src/ERP.Application/Accounting/ChartOfAccounts/
 
 - ينتمي إلى Aggregate الدليل المحاسبي (`ChartOfAccounts`).
 - يُستخدم في سطور القيود اليومية (`JournalLine`).
+
+_Last Updated: 2026-02-10_

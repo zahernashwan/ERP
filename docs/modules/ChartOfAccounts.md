@@ -46,3 +46,5 @@ src/ERP.Application/Accounting/ChartOfAccounts/
 
 - يحتوي على كيانات `Account`.
 - يُستخدم كمرجع لسطور القيود اليومية.
+
+_Last Updated: 2026-02-10_

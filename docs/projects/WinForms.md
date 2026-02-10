@@ -50,3 +50,5 @@ dotnet run --project src/ERP.Bootstrapper
 ## الاختبارات
 
 > لا يوجد مشروع اختبارات مستقل لطبقة العرض حاليًا.
+
+_Last Updated: 2026-02-10_

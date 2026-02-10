@@ -15,3 +15,5 @@ src/ERP.Application/
 - Query = كائن بيانات يصف ما نريد قراءته.
 - Handler يقرأ من Repository ويُرجع DTO.
 - لا يُغيّر حالة أي Aggregate.
+
+_Last Updated: 2026-02-10_

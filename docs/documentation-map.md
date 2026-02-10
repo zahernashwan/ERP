@@ -19,6 +19,7 @@
 | [`docs/projects/Application.md`](projects/Application.md) | طبقة التطبيق — حالات الاستخدام CQRS |
 | [`docs/projects/Infrastructure.md`](projects/Infrastructure.md) | طبقة البنية التحتية — التنفيذات التقنية |
 | [`docs/projects/WinForms.md`](projects/WinForms.md) | طبقة العرض — واجهة WinForms |
+| [`docs/projects/Bootstrapper.md`](projects/Bootstrapper.md) | نقطة التشغيل — Composition Root |
 
 ## توثيق الموديلات (`docs/modules/`)
 
@@ -56,14 +57,6 @@
 | [`docs/infrastructure/integrations.md`](infrastructure/integrations.md) | التكاملات الخارجية (Integrations) |
 | [`docs/infrastructure/persistence.md`](infrastructure/persistence.md) | التخزين (Persistence) |
 
-## توثيق وحدة المحاسبة (`docs/accounting/`)
-
-| الملف | الوصف |
-| --- | --- |
-| [`docs/accounting/chart-of-accounts.md`](accounting/chart-of-accounts.md) | الدليل المحاسبي (Chart of Accounts) |
-| [`docs/accounting/cost-centers.md`](accounting/cost-centers.md) | مراكز التكلفة (Cost Centers) |
-| [`docs/accounting/journals.md`](accounting/journals.md) | القيود اليومية (Journals) |
-
 ## ملفات README للمشاريع (`src/`)
 
 | الملف | الوصف |
@@ -95,3 +88,5 @@
 | --- | --- |
 | [`scripts/generate-readme.sh`](../scripts/generate-readme.sh) | سكربت توليد README.md تلقائياً من ملفات `docs/` |
 | [`.github/workflows/docs-check.yml`](../.github/workflows/docs-check.yml) | سير عمل CI للتحقق من تحديث README.md |
+
+_Last Updated: 2026-02-10_

@@ -49,3 +49,5 @@ src/ERP.Application/Accounting/Journals/
 
 - يُسجَّل في دفتر الأستاذ (`Ledger`) عبر `RegisterJournal`.
 - يستخدم `AccountId` لربط السطور بالحسابات.
+
+_Last Updated: 2026-02-10_

@@ -15,3 +15,5 @@ src/ERP.Infrastructure/
 - Repository يطبّق واجهة من Application.
 - لا يحتوي منطق أعمال.
 - يمكن استبداله بتنفيذ آخر (EF Core, Dapper, etc.) بدون تأثير على الطبقات الأخرى.
+
+_Last Updated: 2026-02-10_

@@ -15,3 +15,5 @@ src/ERP.Domain/
 - كل Aggregate Root يرث من `Entity` أو يطبّق هوية فريدة.
 - التعديل يتم فقط عبر methods على الـ Root.
 - لا يُسمح بالوصول المباشر للكيانات الداخلية من خارج الـ Aggregate.
+
+_Last Updated: 2026-02-10_

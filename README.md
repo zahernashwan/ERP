@@ -8,6 +8,7 @@
 - [البنية المعمارية — Clean Architecture + DDD + CQRS](docs/architecture.md)
 - [خريطة التوثيق (Documentation Map)](docs/documentation-map.md)
 - [طبقة التطبيق (Application Layer)](docs/projects/Application.md)
+- [نقطة التشغيل (Bootstrapper — Composition Root)](docs/projects/Bootstrapper.md)
 - [طبقة النطاق (Domain Layer)](docs/projects/Domain.md)
 - [طبقة البنية التحتية (Infrastructure Layer)](docs/projects/Infrastructure.md)
 - [طبقة العرض — WinForms (Presentation Layer)](docs/projects/WinForms.md)
@@ -27,9 +28,6 @@
 - [Use Cases (حالات الاستخدام)](docs/application/use-cases.md)
 - [Integrations (التكاملات الخارجية)](docs/infrastructure/integrations.md)
 - [Persistence (التخزين)](docs/infrastructure/persistence.md)
-- [الدليل المحاسبي (Chart of Accounts)](docs/accounting/chart-of-accounts.md)
-- [مراكز التكلفة (Cost Centers)](docs/accounting/cost-centers.md)
-- [القيود اليومية (Journals)](docs/accounting/journals.md)
 
 ---
 
@@ -205,6 +203,8 @@ dotnet run --project src/ERP.Bootstrapper
 dotnet test -c Release
 ```
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # البنية المعمارية — Clean Architecture + DDD + CQRS
@@ -306,6 +306,8 @@ dotnet test -c Release
 - التغييرات في البنية التحتية أو الواجهة لا يجب أن تؤثر على Domain.
 - يتم حقن جميع الاعتمادات صراحةً دون Service Locators.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # خريطة التوثيق (Documentation Map)
@@ -329,6 +331,7 @@ dotnet test -c Release
 | [`docs/projects/Application.md`](projects/Application.md) | طبقة التطبيق — حالات الاستخدام CQRS |
 | [`docs/projects/Infrastructure.md`](projects/Infrastructure.md) | طبقة البنية التحتية — التنفيذات التقنية |
 | [`docs/projects/WinForms.md`](projects/WinForms.md) | طبقة العرض — واجهة WinForms |
+| [`docs/projects/Bootstrapper.md`](projects/Bootstrapper.md) | نقطة التشغيل — Composition Root |
 
 ## توثيق الموديلات (`docs/modules/`)
 
@@ -366,14 +369,6 @@ dotnet test -c Release
 | [`docs/infrastructure/integrations.md`](infrastructure/integrations.md) | التكاملات الخارجية (Integrations) |
 | [`docs/infrastructure/persistence.md`](infrastructure/persistence.md) | التخزين (Persistence) |
 
-## توثيق وحدة المحاسبة (`docs/accounting/`)
-
-| الملف | الوصف |
-| --- | --- |
-| [`docs/accounting/chart-of-accounts.md`](accounting/chart-of-accounts.md) | الدليل المحاسبي (Chart of Accounts) |
-| [`docs/accounting/cost-centers.md`](accounting/cost-centers.md) | مراكز التكلفة (Cost Centers) |
-| [`docs/accounting/journals.md`](accounting/journals.md) | القيود اليومية (Journals) |
-
 ## ملفات README للمشاريع (`src/`)
 
 | الملف | الوصف |
@@ -405,6 +400,8 @@ dotnet test -c Release
 | --- | --- |
 | [`scripts/generate-readme.sh`](../scripts/generate-readme.sh) | سكربت توليد README.md تلقائياً من ملفات `docs/` |
 | [`.github/workflows/docs-check.yml`](../.github/workflows/docs-check.yml) | سير عمل CI للتحقق من تحديث README.md |
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -475,6 +472,66 @@ ERP.Application/
 tests/ERP.Application.Tests/
 ```
 
+_Last Updated: 2026-02-10_
+
+---
+
+# نقطة التشغيل (Bootstrapper — Composition Root)
+
+## الوصف العام
+
+مشروع `ERP.Bootstrapper` هو نقطة التشغيل والـ Composition Root للتطبيق. يقوم بتهيئة حاوية الحقن (DI Container) وتسجيل جميع الطبقات ثم تشغيل واجهة WinForms.
+
+## المسار
+
+```
+src/ERP.Bootstrapper/
+```
+
+## البنية الداخلية
+
+```
+ERP.Bootstrapper/
+├── Program.cs
+└── ContainerConfiguration.cs
+```
+
+## المسؤوليات
+
+- تهيئة `IServiceCollection` وتسجيل جميع الطبقات:
+  - طبقة التطبيق (`AddApplication`)
+  - طبقة البنية التحتية (`AddInfrastructure`)
+  - طبقة العرض (WinForms Forms + Controllers)
+- إنشاء DI scope للتطبيق.
+- استدعاء وتشغيل `MainForm`.
+
+## الحدود الصارمة
+
+- لا منطق أعمال، لا قواعد نطاق.
+- يقتصر على التهيئة والتسجيل والتشغيل فقط.
+- لا يُنشئ كائنات UI يدوياً — يتم تسجيلها عبر مشروع Presentation.
+
+## الملفات الرئيسية
+
+| الملف | الوصف |
+| --- | --- |
+| `Program.cs` | نقطة البداية — يبدأ التطبيق ويشغّل `MainForm` من DI |
+| `ContainerConfiguration.cs` | التسجيل المركزي لجميع الطبقات في DI Container |
+
+## التشغيل
+
+```bash
+dotnet run --project src/ERP.Bootstrapper
+```
+
+## الاعتماديات
+
+- `ERP.Application` — تسجيل حالات الاستخدام.
+- `ERP.Infrastructure` — تسجيل التنفيذات التقنية.
+- `ERP.Presentation.WinForms` — تسجيل الواجهات والـ Controllers.
+
+_Last Updated: 2026-02-10_
+
 ---
 
 # طبقة النطاق (Domain Layer)
@@ -530,6 +587,8 @@ ERP.Domain/
 tests/ERP.Domain.Tests/
 ```
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # طبقة البنية التحتية (Infrastructure Layer)
@@ -575,6 +634,8 @@ ERP.Infrastructure/
 ## الاختبارات
 
 > لا يوجد مشروع اختبارات مستقل للبنية التحتية حاليًا. يُختبر عبر اختبارات التكامل في `ERP.Application.Tests`.
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -631,6 +692,8 @@ dotnet run --project src/ERP.Bootstrapper
 
 > لا يوجد مشروع اختبارات مستقل لطبقة العرض حاليًا.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # الحسابات (Account)
@@ -678,6 +741,8 @@ src/ERP.Application/Accounting/ChartOfAccounts/
 
 - ينتمي إلى Aggregate الدليل المحاسبي (`ChartOfAccounts`).
 - يُستخدم في سطور القيود اليومية (`JournalLine`).
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -730,6 +795,8 @@ src/ERP.Application/Accounting/ChartOfAccounts/
 - يحتوي على كيانات `Account`.
 - يُستخدم كمرجع لسطور القيود اليومية.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # مراكز التكلفة (Cost Centers)
@@ -758,15 +825,22 @@ src/ERP.Domain/Accounting/
 
 ## أحداث النطاق (Domain Events)
 
-> لم تُنفَّذ بعد — سيتم إضافتها عند بناء Aggregate مستقل لمراكز التكلفة.
+لا يوجد حاليًا.
 
 ## حالات الاستخدام
 
-> لم تُنفَّذ بعد — مخطط لها ضمن التوسعات المستقبلية.
+لا يوجد حاليًا.
 
 ## الاعتماديات
 
 - يُربط بسطور القيود اليومية (`JournalLine`) عبر `ProjectId`.
+
+## Failure Modes
+
+- أحداث النطاق (Domain Events) غير منفّذة — تحتاج بناء Aggregate مستقل لمراكز التكلفة.
+- حالات الاستخدام غير منفّذة — مخطط لها ضمن التوسعات المستقبلية.
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -778,7 +852,7 @@ src/ERP.Domain/Accounting/
 
 ## الموقع في الكود
 
-> لم تُنفَّذ بعد — مخطط لها ضمن التوسعات المستقبلية.
+غير منفّذ حاليًا.
 
 ```
 src/ERP.Domain/Inventory/          (مخطط)
@@ -786,8 +860,6 @@ src/ERP.Application/Inventory/     (مخطط)
 ```
 
 ## الكيانات والـ Value Objects
-
-> سيتم تعريفها عند التنفيذ. المتوقع:
 
 | العنصر | النوع | الوصف |
 | --- | --- | --- |
@@ -805,7 +877,7 @@ src/ERP.Application/Inventory/     (مخطط)
 
 ## أحداث النطاق (Domain Events)
 
-> سيتم تعريفها عند التنفيذ.
+لا يوجد حاليًا.
 
 ## حالات الاستخدام
 
@@ -824,6 +896,12 @@ src/ERP.Application/Inventory/     (مخطط)
 
 - تعتمد على وحدة الحسابات لربط المخزون بالأستاذ العام.
 - تُستخدم من وحدتي المبيعات والمشتريات.
+
+## Failure Modes
+
+- الوحدة غير منفّذة بالكامل — الكيانات وأحداث النطاق وحالات الاستخدام مخطط لها ضمن التوسعات المستقبلية.
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -879,6 +957,8 @@ src/ERP.Application/Accounting/Journals/
 - يُسجَّل في دفتر الأستاذ (`Ledger`) عبر `RegisterJournal`.
 - يستخدم `AccountId` لربط السطور بالحسابات.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # دفتر الأستاذ (Ledger)
@@ -929,6 +1009,8 @@ src/ERP.Application/Accounting/Ledgers/
 - يحتوي على مراجع للقيود اليومية (`Journal`).
 - يعتمد على `AccountingPeriod` لتحديد صلاحية التسجيل.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # المشتريات (Purchases)
@@ -939,7 +1021,7 @@ src/ERP.Application/Accounting/Ledgers/
 
 ## الموقع في الكود
 
-> لم تُنفَّذ بعد — مخطط لها ضمن التوسعات المستقبلية.
+غير منفّذ حاليًا.
 
 ```
 src/ERP.Domain/Purchases/          (مخطط)
@@ -947,8 +1029,6 @@ src/ERP.Application/Purchases/     (مخطط)
 ```
 
 ## الكيانات والـ Value Objects
-
-> سيتم تعريفها عند التنفيذ. المتوقع:
 
 | العنصر | النوع | الوصف |
 | --- | --- | --- |
@@ -965,7 +1045,7 @@ src/ERP.Application/Purchases/     (مخطط)
 
 ## أحداث النطاق (Domain Events)
 
-> سيتم تعريفها عند التنفيذ.
+لا يوجد حاليًا.
 
 ## حالات الاستخدام
 
@@ -985,6 +1065,12 @@ src/ERP.Application/Purchases/     (مخطط)
 - تعتمد على وحدة المخزون لتحديث الأرصدة.
 - تعتمد على بيانات الموردين.
 
+## Failure Modes
+
+- الوحدة غير منفّذة بالكامل — الكيانات وأحداث النطاق وحالات الاستخدام مخطط لها ضمن التوسعات المستقبلية.
+
+_Last Updated: 2026-02-10_
+
 ---
 
 # المبيعات (Sales)
@@ -995,7 +1081,7 @@ src/ERP.Application/Purchases/     (مخطط)
 
 ## الموقع في الكود
 
-> لم تُنفَّذ بعد — مخطط لها ضمن التوسعات المستقبلية.
+غير منفّذ حاليًا.
 
 ```
 src/ERP.Domain/Sales/          (مخطط)
@@ -1003,8 +1089,6 @@ src/ERP.Application/Sales/     (مخطط)
 ```
 
 ## الكيانات والـ Value Objects
-
-> سيتم تعريفها عند التنفيذ. المتوقع:
 
 | العنصر | النوع | الوصف |
 | --- | --- | --- |
@@ -1019,7 +1103,7 @@ src/ERP.Application/Sales/     (مخطط)
 
 ## أحداث النطاق (Domain Events)
 
-> سيتم تعريفها عند التنفيذ.
+لا يوجد حاليًا.
 
 ## حالات الاستخدام
 
@@ -1034,6 +1118,12 @@ src/ERP.Application/Sales/     (مخطط)
 
 - تعتمد على وحدة الحسابات لتوليد القيود المحاسبية.
 - تعتمد على وحدة المخزون لتحديث الأرصدة.
+
+## Failure Modes
+
+- الوحدة غير منفّذة بالكامل — الكيانات وأحداث النطاق وحالات الاستخدام مخطط لها ضمن التوسعات المستقبلية.
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -1055,6 +1145,8 @@ src/ERP.Domain/
 - التعديل يتم فقط عبر methods على الـ Root.
 - لا يُسمح بالوصول المباشر للكيانات الداخلية من خارج الـ Aggregate.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # Domain Events
@@ -1074,6 +1166,8 @@ src/ERP.Domain/
 - الحدث يُصاغ بصيغة الماضي (مثل `JournalPosted`، `AccountCreated`).
 - الحدث لا يحتوي منطق أعمال — بيانات فقط.
 - يتم إصداره من داخل الـ Aggregate Root.
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -1095,6 +1189,8 @@ src/ERP.Domain/
 - عند الانتهاك يُرمى Exception واضح.
 - الاختبارات في `tests/ERP.Domain.Tests` تتحقق من كل invariant.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # Commands
@@ -1114,6 +1210,8 @@ src/ERP.Application/
 - Command = كائن بيانات (DTO) يصف العملية المطلوبة.
 - Handler يستدعي الـ Domain ثم يحفظ عبر Repository.
 - لا يُرجع بيانات (أو يرجع ID فقط عند الضرورة).
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -1135,6 +1233,8 @@ src/ERP.Application/
 - Handler يقرأ من Repository ويُرجع DTO.
 - لا يُغيّر حالة أي Aggregate.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # Use Cases (حالات الاستخدام)
@@ -1153,13 +1253,18 @@ src/ERP.Application/
 
 - يوجد MediatR مسجّل عبر `ApplicationModule.AddApplication(IServiceCollection)`.
 - لكن الـ use-case handlers حاليًا **لا تطبّق** `IRequestHandler`؛ يتم استدعاء `HandleAsync(...)` مباشرة.
-- عند التحول لاحقًا إلى MediatR بشكل كامل، الهدف هو إرسال Commands/Queries عبر `ISender`.
 
 ## القواعد
 
 - كل Use Case يقابل Command أو Query واحد.
 - Handler يستخدم `IUnitOfWork` لضمان حدود المعاملة.
 - لا يحتوي منطق أعمال — يفوّضه للـ Domain.
+
+## Failure Modes
+
+- التحول الكامل إلى MediatR (إرسال Commands/Queries عبر `ISender`) غير منفّذ بعد.
+
+_Last Updated: 2026-02-10_
 
 ---
 
@@ -1181,6 +1286,8 @@ src/ERP.Infrastructure/
 - لا يعتمد على طبقة Presentation.
 - يُسجَّل في DI Container عبر `InfrastructureModule`.
 
+_Last Updated: 2026-02-10_
+
 ---
 
 # Persistence (التخزين)
@@ -1201,66 +1308,8 @@ src/ERP.Infrastructure/
 - لا يحتوي منطق أعمال.
 - يمكن استبداله بتنفيذ آخر (EF Core, Dapper, etc.) بدون تأثير على الطبقات الأخرى.
 
----
-
-# الدليل المحاسبي (Chart of Accounts)
-
-## المبدأ
-
-الدليل المحاسبي هو الهيكل الشجري للحسابات الذي يُنظم جميع العمليات المالية.
-
-## الموقع في الكود
-
-```
-src/ERP.Domain/Accounting/
-```
-
-## القواعد
-
-- كل حساب له رقم فريد ومستوى في الشجرة.
-- الحسابات الأبوية لا تقبل قيوداً مباشرة.
-- يتم ربط الحسابات بمراكز التكلفة عند الحاجة.
+_Last Updated: 2026-02-10_
 
 ---
 
-# مراكز التكلفة (Cost Centers)
-
-## المبدأ
-
-مراكز التكلفة تسمح بتتبع المصاريف والإيرادات على مستوى أدق من الحساب (مثل: فرع، قسم، مشروع).
-
-## الموقع في الكود
-
-```
-src/ERP.Domain/Accounting/
-```
-
-## القواعد
-
-- كل مركز تكلفة له رقم فريد.
-- يمكن ربطه بسطور القيود اليومية.
-- يُستخدم في التقارير التحليلية.
-
----
-
-# القيود اليومية (Journals)
-
-## المبدأ
-
-القيد اليومي هو الوحدة الأساسية للتسجيل المحاسبي. كل قيد يحتوي سطوراً مدينة ودائنة يجب أن تتوازن.
-
-## الموقع في الكود
-
-```
-src/ERP.Domain/Accounting/
-```
-
-## القواعد
-
-- مجموع المدين = مجموع الدائن (invariant أساسي).
-- القيد يحتوي سطراً واحداً على الأقل.
-- بعد الترحيل لا يمكن التعديل.
-
----
-
-_Last generated: 2026-02-10 00:41:56 UTC_
+_Last generated: 2026-02-10 01:11:49 UTC_

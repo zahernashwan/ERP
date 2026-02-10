@@ -64,3 +64,5 @@ ERP.Application/
 ```
 tests/ERP.Application.Tests/
 ```
+
+_Last Updated: 2026-02-10_
