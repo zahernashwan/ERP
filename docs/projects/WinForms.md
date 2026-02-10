@@ -1,5 +1,7 @@
 # طبقة العرض — WinForms (Presentation Layer)
 
+> 📂 `docs/projects/` · [↑ خريطة التوثيق](../documentation-map.md)
+
 ## الوصف العام
 
 مشروع `ERP.Presentation.WinForms` يمثّل واجهة المستخدم المكتبية المبنية بـ Windows Forms. يتبع نمط Supervising Controller / Passive View، حيث الـ Forms تعرض البيانات والـ Controllers تنسّق حالات الاستخدام.

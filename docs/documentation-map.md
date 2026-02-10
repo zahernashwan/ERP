@@ -39,23 +39,23 @@
 | الملف | الوصف |
 | --- | --- |
 | [`docs/domain/aggregates.md`](domain/aggregates.md) | الـ Aggregates — حدود الاتساق في نموذج الأعمال |
-| [`docs/domain/domain-events.md`](domain/domain-events.md) | أحداث النطاق (Domain Events) |
-| [`docs/domain/invariants.md`](domain/invariants.md) | القيود الجوهرية (Invariants) |
+| [`docs/domain/domain-events.md`](domain/domain-events.md) | أحداث النطاق — التواصل بين الكيانات المجمّعة |
+| [`docs/domain/invariants.md`](domain/invariants.md) | القيود الجوهرية — القواعد الثابتة داخل الـ Aggregate |
 
 ## توثيق طبقة التطبيق (`docs/application/`)
 
 | الملف | الوصف |
 | --- | --- |
-| [`docs/application/commands.md`](application/commands.md) | الأوامر (Commands) — نية تغيير الحالة |
-| [`docs/application/queries.md`](application/queries.md) | الاستعلامات (Queries) — طلب قراءة بدون تعديل |
-| [`docs/application/use-cases.md`](application/use-cases.md) | حالات الاستخدام (Use Cases) |
+| [`docs/application/commands.md`](application/commands.md) | الأوامر — نية تغيير الحالة |
+| [`docs/application/queries.md`](application/queries.md) | الاستعلامات — طلب قراءة بدون تعديل |
+| [`docs/application/use-cases.md`](application/use-cases.md) | حالات الاستخدام — تنسيق تدفق العمل |
 
 ## توثيق طبقة البنية التحتية (`docs/infrastructure/`)
 
 | الملف | الوصف |
 | --- | --- |
-| [`docs/infrastructure/integrations.md`](infrastructure/integrations.md) | التكاملات الخارجية (Integrations) |
-| [`docs/infrastructure/persistence.md`](infrastructure/persistence.md) | التخزين (Persistence) |
+| [`docs/infrastructure/integrations.md`](infrastructure/integrations.md) | التكاملات الخارجية — الأنظمة والخدمات الخارجية |
+| [`docs/infrastructure/persistence.md`](infrastructure/persistence.md) | التخزين — تنفيذ واجهات التخزين |
 
 ## ملفات README للمشاريع (`src/`)
 

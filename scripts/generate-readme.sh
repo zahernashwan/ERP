@@ -57,15 +57,35 @@ build_readme() {
   echo "# NoufexERP Documentation"
   echo ""
 
-  # Table of Contents
+  # Table of Contents (grouped by section)
   echo "## Table of Contents"
   echo ""
+
+  local current_section=""
   while IFS= read -r file; do
     validate_title "$file"
     local title
     title=$(grep -m1 '^# ' "$file" | sed 's/^# //')
     local rel
     rel=$(python3 -c "import os.path; print(os.path.relpath('$file', '$REPO_ROOT'))")
+
+    # Determine section from path and emit group header when it changes
+    local section=""
+    case "$file" in
+      */projects/*) section="المشاريع (Projects)" ;;
+      */modules/*)  section="الوحدات (Modules)" ;;
+      */domain/*)   section="مفاهيم طبقة النطاق (Domain Concepts)" ;;
+      */application/*) section="مفاهيم طبقة التطبيق (Application Concepts)" ;;
+      */infrastructure/*) section="مفاهيم البنية التحتية (Infrastructure Concepts)" ;;
+    esac
+
+    if [ -n "$section" ] && [ "$section" != "$current_section" ]; then
+      echo ""
+      echo "### $section"
+      echo ""
+      current_section="$section"
+    fi
+
     echo "- [$title]($rel)"
   done <<< "$files"
   echo ""
