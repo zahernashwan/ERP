@@ -213,12 +213,12 @@ if [ -z "$base_ref" ]; then
 fi
 
 if [ -n "$base_ref" ]; then
-  # Get list of changed files compared to base
-  changed_files=$(git diff --name-only "$base_ref"...HEAD 2>/dev/null || git diff --name-only "$base_ref" HEAD 2>/dev/null || echo "")
+  # Get list of changed files compared to base (use two-dot range consistently)
+  changed_files=$(git diff --name-only "$base_ref" HEAD 2>/dev/null || echo "")
 
   if [ -n "$changed_files" ]; then
-    src_changed=$(echo "$changed_files" | grep -c '^src/' || true)
-    docs_changed=$(echo "$changed_files" | grep -c '^docs/' || true)
+    src_changed=$(printf '%s\n' "$changed_files" | grep -c '^src/' || true)
+    docs_changed=$(printf '%s\n' "$changed_files" | grep -c '^docs/' || true)
 
     if [ "$src_changed" -gt 0 ] && [ "$docs_changed" -eq 0 ]; then
       fail "R-DOC-04: PR changes $src_changed file(s) in src/ but no file in docs/ was updated. Every code change must include documentation updates."
