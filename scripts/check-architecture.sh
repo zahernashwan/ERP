@@ -110,6 +110,8 @@ for ref in $pres_refs; do
 done
 if echo "$pres_refs" | grep -q "ERP.Application"; then
   pass "R-DEP-04: ERP.Presentation.WinForms depends on ERP.Application only."
+else
+  fail "R-DEP-04: ERP.Presentation.WinForms does not reference ERP.Application (expected)."
 fi
 
 # ── 5. R-DEP-05: Bootstrapper is the Composition Root ──────────────────────
@@ -123,8 +125,8 @@ fi
 # ── 6. R-DOM-09: Domain must not reference infrastructure packages ──────────
 info "R-DOM-09: Domain must not contain infrastructure/framework references..."
 domain_csproj="$SRC/ERP.Domain/ERP.Domain.csproj"
-forbidden_domain_pkgs="EntityFramework|Dapper|Microsoft.Extensions.DependencyInjection|System.Data|Newtonsoft|Microsoft.AspNetCore"
-if grep -qEi "$forbidden_domain_pkgs" "$domain_csproj" 2>/dev/null; then
+forbidden_domain_pkgs='PackageReference Include="(EntityFramework|Dapper|Microsoft\.Extensions\.DependencyInjection|System\.Data\.|Newtonsoft|Microsoft\.AspNetCore)'
+if grep -qP "$forbidden_domain_pkgs" "$domain_csproj" 2>/dev/null; then
   fail "R-DOM-09: ERP.Domain contains forbidden infrastructure/framework package references."
 else
   pass "R-DOM-09: ERP.Domain is free from infrastructure/framework packages."
@@ -133,8 +135,8 @@ fi
 # ── 7. R-APP-09: Application must not reference Infrastructure ─────────────
 info "R-APP-09: Application must not reference infrastructure packages..."
 app_csproj="$SRC/ERP.Application/ERP.Application.csproj"
-forbidden_app_pkgs="EntityFramework|Dapper|Microsoft.Extensions.DependencyInjection[^.]|System.Data.SqlClient"
-if grep -qEi "$forbidden_app_pkgs" "$app_csproj" 2>/dev/null; then
+forbidden_app_pkgs='PackageReference Include="(EntityFramework|Dapper|System\.Data\.SqlClient|Microsoft\.Extensions\.DependencyInjection")'
+if grep -qP "$forbidden_app_pkgs" "$app_csproj" 2>/dev/null; then
   fail "R-APP-09: ERP.Application contains forbidden infrastructure package references."
 else
   pass "R-APP-09: ERP.Application is free from infrastructure packages."
@@ -155,10 +157,12 @@ fi
 
 # ── 9. R-DOC-02: README.md is auto-generated ───────────────────────────────
 info "R-DOC-02: README.md must be auto-generated and up-to-date..."
-if bash "$REPO_ROOT/scripts/generate-readme.sh" --check 2>/dev/null; then
+readme_check_output=$(bash "$REPO_ROOT/scripts/generate-readme.sh" --check 2>&1) || true
+if echo "$readme_check_output" | grep -q "up-to-date"; then
   pass "R-DOC-02: README.md is up-to-date."
 else
   fail "R-DOC-02: README.md is out of date. Run: scripts/generate-readme.sh"
+  echo "    $readme_check_output"
 fi
 
 # ── 10. R-BST-02: No Service Locator patterns in src/ ──────────────────────
