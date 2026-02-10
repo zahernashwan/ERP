@@ -1,5 +1,7 @@
 # طبقة النطاق (Domain Layer)
 
+> 📂 `docs/projects/` · [↑ خريطة التوثيق](../documentation-map.md)
+
 ## الوصف العام
 
 مشروع `ERP.Domain` يحتوي على نموذج الأعمال الأساسي: Aggregates، Entities، Value Objects، Domain Events، والقواعد الجوهرية (Invariants). هذه الطبقة لا تعتمد على أي طبقة أخرى.
@@ -50,3 +52,5 @@ ERP.Domain/
 ```
 tests/ERP.Domain.Tests/
 ```
+
+_Last Updated: 2026-02-10_

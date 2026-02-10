@@ -8,6 +8,7 @@
 | --- | --- |
 | [`docs/overview.md`](overview.md) | نظرة عامة على حل ERP وشجرة الوظائف |
 | [`docs/architecture.md`](architecture.md) | البنية المعمارية — Clean Architecture + DDD + CQRS |
+| [`docs/ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md) | ⚠️ القواعد المعمارية الإلزامية — المرجع الحاكم لمراجعات PR |
 | [`docs/README.template.md`](README.template.md) | قالب توليد README.md وقواعد التوثيق |
 | [`docs/documentation-map.md`](documentation-map.md) | هذا الملف — فهرس ملفات التوثيق |
 
@@ -19,6 +20,7 @@
 | [`docs/projects/Application.md`](projects/Application.md) | طبقة التطبيق — حالات الاستخدام CQRS |
 | [`docs/projects/Infrastructure.md`](projects/Infrastructure.md) | طبقة البنية التحتية — التنفيذات التقنية |
 | [`docs/projects/WinForms.md`](projects/WinForms.md) | طبقة العرض — واجهة WinForms |
+| [`docs/projects/Bootstrapper.md`](projects/Bootstrapper.md) | نقطة التشغيل — Composition Root |
 
 ## توثيق الموديلات (`docs/modules/`)
 
@@ -38,31 +40,23 @@
 | الملف | الوصف |
 | --- | --- |
 | [`docs/domain/aggregates.md`](domain/aggregates.md) | الـ Aggregates — حدود الاتساق في نموذج الأعمال |
-| [`docs/domain/domain-events.md`](domain/domain-events.md) | أحداث النطاق (Domain Events) |
-| [`docs/domain/invariants.md`](domain/invariants.md) | القيود الجوهرية (Invariants) |
+| [`docs/domain/domain-events.md`](domain/domain-events.md) | أحداث النطاق — التواصل بين الكيانات المجمّعة |
+| [`docs/domain/invariants.md`](domain/invariants.md) | القيود الجوهرية — القواعد الثابتة داخل الـ Aggregate |
 
 ## توثيق طبقة التطبيق (`docs/application/`)
 
 | الملف | الوصف |
 | --- | --- |
-| [`docs/application/commands.md`](application/commands.md) | الأوامر (Commands) — نية تغيير الحالة |
-| [`docs/application/queries.md`](application/queries.md) | الاستعلامات (Queries) — طلب قراءة بدون تعديل |
-| [`docs/application/use-cases.md`](application/use-cases.md) | حالات الاستخدام (Use Cases) |
+| [`docs/application/commands.md`](application/commands.md) | الأوامر — نية تغيير الحالة |
+| [`docs/application/queries.md`](application/queries.md) | الاستعلامات — طلب قراءة بدون تعديل |
+| [`docs/application/use-cases.md`](application/use-cases.md) | حالات الاستخدام — تنسيق تدفق العمل |
 
 ## توثيق طبقة البنية التحتية (`docs/infrastructure/`)
 
 | الملف | الوصف |
 | --- | --- |
-| [`docs/infrastructure/integrations.md`](infrastructure/integrations.md) | التكاملات الخارجية (Integrations) |
-| [`docs/infrastructure/persistence.md`](infrastructure/persistence.md) | التخزين (Persistence) |
-
-## توثيق وحدة المحاسبة (`docs/accounting/`)
-
-| الملف | الوصف |
-| --- | --- |
-| [`docs/accounting/chart-of-accounts.md`](accounting/chart-of-accounts.md) | الدليل المحاسبي (Chart of Accounts) |
-| [`docs/accounting/cost-centers.md`](accounting/cost-centers.md) | مراكز التكلفة (Cost Centers) |
-| [`docs/accounting/journals.md`](accounting/journals.md) | القيود اليومية (Journals) |
+| [`docs/infrastructure/integrations.md`](infrastructure/integrations.md) | التكاملات الخارجية — الأنظمة والخدمات الخارجية |
+| [`docs/infrastructure/persistence.md`](infrastructure/persistence.md) | التخزين — تنفيذ واجهات التخزين |
 
 ## ملفات README للمشاريع (`src/`)
 
@@ -94,4 +88,9 @@
 | الملف | الوصف |
 | --- | --- |
 | [`scripts/generate-readme.sh`](../scripts/generate-readme.sh) | سكربت توليد README.md تلقائياً من ملفات `docs/` |
+| [`scripts/check-architecture.sh`](../scripts/check-architecture.sh) | سكربت التحقق من القواعد المعمارية (CI Gate) |
 | [`.github/workflows/docs-check.yml`](../.github/workflows/docs-check.yml) | سير عمل CI للتحقق من تحديث README.md |
+| [`.github/workflows/architecture-gate.yml`](../.github/workflows/architecture-gate.yml) | ⚠️ بوابة CI — ترفض أي PR يخالف القواعد المعمارية |
+| [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | تعليمات Copilot — تشير إلى القواعد المعمارية كمرجع حاكم |
+
+_Last Updated: 2026-02-10_

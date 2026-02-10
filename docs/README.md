@@ -2,6 +2,17 @@
 
 هذا الملف يُمثل الفهرس الرئيسي لجميع ملفات التوثيق في المستودع.
 
+> ⚠️ المرجع الحاكم لمراجعات PR: [`ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md)
+
+## ملفات التوثيق الرئيسية (`docs/`)
+
+| الملف | الوصف |
+| --- | --- |
+| [overview.md](overview.md) | نظرة عامة على حل ERP وشجرة الوظائف |
+| [architecture.md](architecture.md) | البنية المعمارية — Clean Architecture + DDD + CQRS |
+| [ARCHITECTURE_RULES.md](ARCHITECTURE_RULES.md) | ⚠️ القواعد المعمارية الإلزامية — المرجع الحاكم |
+| [documentation-map.md](documentation-map.md) | خريطة التوثيق الشاملة |
+
 ## توثيق المشاريع (`docs/projects/`)
 
 | الملف | الوصف |
@@ -10,6 +21,7 @@
 | [Application.md](projects/Application.md) | طبقة التطبيق — حالات الاستخدام CQRS |
 | [Infrastructure.md](projects/Infrastructure.md) | طبقة البنية التحتية — التنفيذات التقنية |
 | [WinForms.md](projects/WinForms.md) | طبقة العرض — واجهة WinForms |
+| [Bootstrapper.md](projects/Bootstrapper.md) | نقطة التشغيل — Composition Root |
 
 ## توثيق الموديلات (`docs/modules/`)
 
@@ -24,14 +36,6 @@
 | [Purchases.md](modules/Purchases.md) | المشتريات |
 | [Sales.md](modules/Sales.md) | المبيعات |
 
-## ملفات التوثيق الأخرى
-
-| الملف | الوصف |
-| --- | --- |
-| [overview.md](overview.md) | نظرة عامة على حل ERP |
-| [architecture.md](architecture.md) | البنية المعمارية — Clean Architecture + DDD + CQRS |
-| [documentation-map.md](documentation-map.md) | خريطة التوثيق الشاملة |
-
 ## أقسام التوثيق المتخصصة
 
 | المجلد | الوصف |
@@ -39,4 +43,3 @@
 | [`domain/`](domain/) | توثيق مفاهيم طبقة النطاق (Aggregates, Events, Invariants) |
 | [`application/`](application/) | توثيق مفاهيم طبقة التطبيق (Commands, Queries, Use Cases) |
 | [`infrastructure/`](infrastructure/) | توثيق البنية التحتية (Persistence, Integrations) |
-| [`accounting/`](accounting/) | توثيق وحدة المحاسبة |

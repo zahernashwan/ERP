@@ -27,12 +27,12 @@ collect_files() {
   local files=()
 
   # Top-level docs first (fixed order)
-  for f in "$DOCS_DIR/overview.md" "$DOCS_DIR/architecture.md" "$DOCS_DIR/documentation-map.md"; do
+  for f in "$DOCS_DIR/overview.md" "$DOCS_DIR/architecture.md" "$DOCS_DIR/ARCHITECTURE_RULES.md" "$DOCS_DIR/documentation-map.md"; do
     [ -f "$f" ] && files+=("$f")
   done
 
   # Sub-directories in fixed order
-  for dir in projects modules domain application infrastructure accounting; do
+  for dir in projects modules domain application infrastructure; do
     if [ -d "$DOCS_DIR/$dir" ]; then
       while IFS= read -r f; do
         files+=("$f")
@@ -57,15 +57,35 @@ build_readme() {
   echo "# NoufexERP Documentation"
   echo ""
 
-  # Table of Contents
+  # Table of Contents (grouped by section)
   echo "## Table of Contents"
   echo ""
+
+  local current_section=""
   while IFS= read -r file; do
     validate_title "$file"
     local title
     title=$(grep -m1 '^# ' "$file" | sed 's/^# //')
     local rel
     rel=$(python3 -c "import os.path; print(os.path.relpath('$file', '$REPO_ROOT'))")
+
+    # Determine section from path and emit group header when it changes
+    local section=""
+    case "$file" in
+      */projects/*) section="المشاريع (Projects)" ;;
+      */modules/*)  section="الوحدات (Modules)" ;;
+      */domain/*)   section="مفاهيم طبقة النطاق (Domain Concepts)" ;;
+      */application/*) section="مفاهيم طبقة التطبيق (Application Concepts)" ;;
+      */infrastructure/*) section="مفاهيم البنية التحتية (Infrastructure Concepts)" ;;
+    esac
+
+    if [ -n "$section" ] && [ "$section" != "$current_section" ]; then
+      echo ""
+      echo "### $section"
+      echo ""
+      current_section="$section"
+    fi
+
     echo "- [$title]($rel)"
   done <<< "$files"
   echo ""

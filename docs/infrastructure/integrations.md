@@ -1,6 +1,8 @@
-# Integrations (التكاملات الخارجية)
+# Integrations — التكاملات الخارجية
 
-## المبدأ
+> 📂 `docs/infrastructure/` · [↑ خريطة التوثيق](../documentation-map.md)
+
+## الوصف العام
 
 أي تكامل مع أنظمة خارجية (APIs, Message Brokers, File Systems) يُنفَّذ في طبقة Infrastructure.
 
@@ -15,3 +17,5 @@ src/ERP.Infrastructure/
 - كل تكامل يطبّق واجهة معرّفة في Application.
 - لا يعتمد على طبقة Presentation.
 - يُسجَّل في DI Container عبر `InfrastructureModule`.
+
+_Last Updated: 2026-02-10_

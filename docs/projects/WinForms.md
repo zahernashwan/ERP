@@ -1,5 +1,7 @@
 # طبقة العرض — WinForms (Presentation Layer)
 
+> 📂 `docs/projects/` · [↑ خريطة التوثيق](../documentation-map.md)
+
 ## الوصف العام
 
 مشروع `ERP.Presentation.WinForms` يمثّل واجهة المستخدم المكتبية المبنية بـ Windows Forms. يتبع نمط Supervising Controller / Passive View، حيث الـ Forms تعرض البيانات والـ Controllers تنسّق حالات الاستخدام.
@@ -15,11 +17,27 @@ src/ERP.Presentation.WinForms/
 ```
 ERP.Presentation.WinForms/
 ├── Accounting/
-│   └── Journals/
-│       ├── JournalsListForm.cs
-│       └── ...
-├── MainForm.cs
-└── ...
+│   ├── ChartOfAccounts/
+│   │   ├── ChartsController.cs
+│   │   ├── ChartsListForm.cs
+│   │   └── ChartDetailsForm.cs
+│   ├── Journals/
+│   │   ├── JournalsController.cs
+│   │   ├── JournalsListForm.cs
+│   │   ├── JournalDetailsForm.cs
+│   │   └── JournalForm.cs
+│   └── Ledgers/
+│       ├── LedgersController.cs
+│       ├── LedgersListForm.cs
+│       └── LedgerDetailsForm.cs
+├── Navigation/
+│   ├── INavigationController.cs
+│   └── NavigationController.cs
+├── Shell/
+│   ├── IMainShell.cs
+│   └── MainForm.cs
+├── Program.cs
+└── AssemblyMarker.cs
 ```
 
 ## المسؤوليات
@@ -50,3 +68,5 @@ dotnet run --project src/ERP.Bootstrapper
 ## الاختبارات
 
 > لا يوجد مشروع اختبارات مستقل لطبقة العرض حاليًا.
+
+_Last Updated: 2026-02-10_

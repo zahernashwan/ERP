@@ -1,5 +1,7 @@
 # طبقة البنية التحتية (Infrastructure Layer)
 
+> 📂 `docs/projects/` · [↑ خريطة التوثيق](../documentation-map.md)
+
 ## الوصف العام
 
 مشروع `ERP.Infrastructure` ينفّذ التفاصيل التقنية: تنفيذات المستودعات، التخزين، التكاملات الخارجية، وتسجيل الخدمات في DI Container. التنفيذ الحالي يستخدم In-Memory.
@@ -14,11 +16,14 @@ src/ERP.Infrastructure/
 
 ```
 ERP.Infrastructure/
-├── Accounting/
-│   ├── Journals/
-│   ├── ChartOfAccounts/
-│   └── Ledgers/
-└── InfrastructureModule.cs
+├── Persistence/
+│   ├── InMemoryUnitOfWork.cs
+│   └── Repositories/
+│       ├── InMemoryChartOfAccountsRepository.cs
+│       ├── InMemoryJournalRepository.cs
+│       └── InMemoryLedgerRepository.cs
+├── InfrastructureModule.cs
+└── AssemblyMarker.cs
 ```
 
 ## المسؤوليات
@@ -41,3 +46,5 @@ ERP.Infrastructure/
 ## الاختبارات
 
 > لا يوجد مشروع اختبارات مستقل للبنية التحتية حاليًا. يُختبر عبر اختبارات التكامل في `ERP.Application.Tests`.
+
+_Last Updated: 2026-02-10_
