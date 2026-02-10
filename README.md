@@ -421,6 +421,32 @@ Infrastructure → Application → Domain
 | **R-DOC-02** | `README.md` يُولَّد تلقائياً — لا يُعدَّل يدوياً |
 | **R-DOC-03** | التغييرات في التوثيق تتم عبر ملفات `docs/` ثم تشغيل `scripts/generate-readme.sh` |
 
+## 9. بوابة CI — CI Gate
+
+> 🚫 **أي PR يخالف هذه القواعد يُرفض تلقائياً عبر CI — بدون استثناء.**
+
+| العنصر | التفصيل |
+| --- | --- |
+| **سير العمل** | `.github/workflows/architecture-gate.yml` |
+| **السكربت** | `scripts/check-architecture.sh` |
+| **يتحقق من** | اتجاه الاعتمادات (R-DEP)، عزل الطبقات (R-DOM/R-APP)، بنية التوثيق (R-DOC)، منع Service Locators (R-BST-02) |
+| **متى يعمل** | على كل Pull Request وكل Push إلى `main` |
+| **النتيجة** | ❌ فشل = PR مرفوض · ✅ نجاح = PR مسموح |
+
+### كيف يعمل
+
+```bash
+# تشغيل محلي قبل فتح PR
+bash scripts/check-architecture.sh
+```
+
+يتحقق السكربت من:
+1. وجود `docs/ARCHITECTURE_RULES.md`
+2. اتجاه اعتمادات المشاريع عبر `.csproj` (R-DEP-01 إلى R-DEP-05)
+3. عدم وجود حزم بنية تحتية في Domain أو Application (R-DOM-09، R-APP-09)
+4. بنية ملفات التوثيق (R-DOC-01، R-DOC-02)
+5. عدم وجود Service Locator patterns خارج Bootstrapper (R-BST-02)
+
 ## مرجع سريع — Quick Reference
 
 ```
@@ -530,7 +556,9 @@ _Last Updated: 2026-02-10_
 | الملف | الوصف |
 | --- | --- |
 | [`scripts/generate-readme.sh`](../scripts/generate-readme.sh) | سكربت توليد README.md تلقائياً من ملفات `docs/` |
+| [`scripts/check-architecture.sh`](../scripts/check-architecture.sh) | سكربت التحقق من القواعد المعمارية (CI Gate) |
 | [`.github/workflows/docs-check.yml`](../.github/workflows/docs-check.yml) | سير عمل CI للتحقق من تحديث README.md |
+| [`.github/workflows/architecture-gate.yml`](../.github/workflows/architecture-gate.yml) | ⚠️ بوابة CI — ترفض أي PR يخالف القواعد المعمارية |
 | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | تعليمات Copilot — تشير إلى القواعد المعمارية كمرجع حاكم |
 
 _Last Updated: 2026-02-10_
@@ -1506,4 +1534,4 @@ _Last Updated: 2026-02-10_
 
 ---
 
-_Last generated: 2026-02-10 01:31:51 UTC_
+_Last generated: 2026-02-10 01:49:37 UTC_

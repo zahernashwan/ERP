@@ -88,7 +88,9 @@
 | الملف | الوصف |
 | --- | --- |
 | [`scripts/generate-readme.sh`](../scripts/generate-readme.sh) | سكربت توليد README.md تلقائياً من ملفات `docs/` |
+| [`scripts/check-architecture.sh`](../scripts/check-architecture.sh) | سكربت التحقق من القواعد المعمارية (CI Gate) |
 | [`.github/workflows/docs-check.yml`](../.github/workflows/docs-check.yml) | سير عمل CI للتحقق من تحديث README.md |
+| [`.github/workflows/architecture-gate.yml`](../.github/workflows/architecture-gate.yml) | ⚠️ بوابة CI — ترفض أي PR يخالف القواعد المعمارية |
 | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | تعليمات Copilot — تشير إلى القواعد المعمارية كمرجع حاكم |
 
 _Last Updated: 2026-02-10_
