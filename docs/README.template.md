@@ -9,10 +9,12 @@
 
 1. `docs/overview.md` — رؤية عامة
 2. `docs/architecture.md` — البنية المعمارية
-3. `docs/domain/*.md` — طبقة النطاق
-4. `docs/application/*.md` — طبقة التطبيق
-5. `docs/infrastructure/*.md` — طبقة البنية التحتية
-6. `docs/accounting/*.md` — وحدة المحاسبة
+3. `docs/projects/*.md` — توثيق المشاريع
+4. `docs/modules/*.md` — توثيق الموديلات
+5. `docs/domain/*.md` — طبقة النطاق
+6. `docs/application/*.md` — طبقة التطبيق
+7. `docs/infrastructure/*.md` — طبقة البنية التحتية
+8. `docs/accounting/*.md` — وحدة المحاسبة
 
 ## قواعد التوثيق
 

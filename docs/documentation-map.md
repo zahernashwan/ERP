@@ -11,6 +11,28 @@
 | [`docs/README.template.md`](README.template.md) | قالب توليد README.md وقواعد التوثيق |
 | [`docs/documentation-map.md`](documentation-map.md) | هذا الملف — فهرس ملفات التوثيق |
 
+## توثيق المشاريع (`docs/projects/`)
+
+| الملف | الوصف |
+| --- | --- |
+| [`docs/projects/Domain.md`](projects/Domain.md) | طبقة النطاق — النموذج والقواعد التجارية |
+| [`docs/projects/Application.md`](projects/Application.md) | طبقة التطبيق — حالات الاستخدام CQRS |
+| [`docs/projects/Infrastructure.md`](projects/Infrastructure.md) | طبقة البنية التحتية — التنفيذات التقنية |
+| [`docs/projects/WinForms.md`](projects/WinForms.md) | طبقة العرض — واجهة WinForms |
+
+## توثيق الموديلات (`docs/modules/`)
+
+| الملف | الوصف |
+| --- | --- |
+| [`docs/modules/Account.md`](modules/Account.md) | الحسابات المالية |
+| [`docs/modules/ChartOfAccounts.md`](modules/ChartOfAccounts.md) | الدليل المحاسبي |
+| [`docs/modules/CostCenters.md`](modules/CostCenters.md) | مراكز التكلفة |
+| [`docs/modules/Inventory.md`](modules/Inventory.md) | المخزون |
+| [`docs/modules/Journal.md`](modules/Journal.md) | القيود اليومية |
+| [`docs/modules/Ledger.md`](modules/Ledger.md) | دفتر الأستاذ |
+| [`docs/modules/Purchases.md`](modules/Purchases.md) | المشتريات |
+| [`docs/modules/Sales.md`](modules/Sales.md) | المبيعات |
+
 ## توثيق طبقة النطاق (`docs/domain/`)
 
 | الملف | الوصف |
