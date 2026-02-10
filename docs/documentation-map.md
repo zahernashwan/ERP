@@ -10,6 +10,7 @@
 | [`docs/architecture.md`](architecture.md) | البنية المعمارية — Clean Architecture + DDD + CQRS |
 | [`docs/ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md) | ⚠️ القواعد المعمارية الإلزامية — المرجع الحاكم لمراجعات PR |
 | [`docs/README.template.md`](README.template.md) | قالب توليد README.md وقواعد التوثيق |
+| [`docs/critical-recommendations.md`](critical-recommendations.md) | ⚠️ التوصيات الحرجة لتحسين المشروع |
 | [`docs/documentation-map.md`](documentation-map.md) | هذا الملف — فهرس ملفات التوثيق |
 
 ## توثيق المشاريع (`docs/projects/`)
