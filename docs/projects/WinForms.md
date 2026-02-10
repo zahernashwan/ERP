@@ -17,11 +17,27 @@ src/ERP.Presentation.WinForms/
 ```
 ERP.Presentation.WinForms/
 ├── Accounting/
-│   └── Journals/
-│       ├── JournalsListForm.cs
-│       └── ...
-├── MainForm.cs
-└── ...
+│   ├── ChartOfAccounts/
+│   │   ├── ChartsController.cs
+│   │   ├── ChartsListForm.cs
+│   │   └── ChartDetailsForm.cs
+│   ├── Journals/
+│   │   ├── JournalsController.cs
+│   │   ├── JournalsListForm.cs
+│   │   ├── JournalDetailsForm.cs
+│   │   └── JournalForm.cs
+│   └── Ledgers/
+│       ├── LedgersController.cs
+│       ├── LedgersListForm.cs
+│       └── LedgerDetailsForm.cs
+├── Navigation/
+│   ├── INavigationController.cs
+│   └── NavigationController.cs
+├── Shell/
+│   ├── IMainShell.cs
+│   └── MainForm.cs
+├── Program.cs
+└── AssemblyMarker.cs
 ```
 
 ## المسؤوليات

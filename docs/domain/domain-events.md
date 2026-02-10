@@ -14,7 +14,7 @@ src/ERP.Domain/
 
 ## القواعد
 
-- الحدث يُصاغ بصيغة الماضي (مثل `JournalPosted`، `AccountCreated`).
+- الحدث يُصاغ بصيغة الماضي (مثل `JournalPosted`، `AccountRegistered`).
 - الحدث لا يحتوي منطق أعمال — بيانات فقط.
 - يتم إصداره من داخل الـ Aggregate Root.
 

@@ -92,6 +92,7 @@ Infrastructure → Application → Domain
 | **R-DOC-01** | كل ملف `.md` في `docs/` يبدأ بعنوان `# Title` |
 | **R-DOC-02** | `README.md` يُولَّد تلقائياً — لا يُعدَّل يدوياً |
 | **R-DOC-03** | التغييرات في التوثيق تتم عبر ملفات `docs/` ثم تشغيل `scripts/generate-readme.sh` |
+| **R-DOC-04** | أي PR يغيّر كودًا في `src/` بدون تعديل مواكب في `docs/` ⇒ **يُرفض فورًا** |
 
 ## 9. بوابة CI — CI Gate
 
@@ -101,7 +102,7 @@ Infrastructure → Application → Domain
 | --- | --- |
 | **سير العمل** | `.github/workflows/architecture-gate.yml` |
 | **السكربت** | `scripts/check-architecture.sh` |
-| **يتحقق من** | اتجاه الاعتمادات (R-DEP)، عزل الطبقات (R-DOM/R-APP)، بنية التوثيق (R-DOC)، منع Service Locators (R-BST-02) |
+| **يتحقق من** | اتجاه الاعتمادات (R-DEP)، عزل الطبقات (R-DOM/R-APP)، بنية التوثيق (R-DOC)، منع Service Locators (R-BST-02)، تعديل التوثيق مع الكود (R-DOC-04) |
 | **متى يعمل** | على كل Pull Request وكل Push إلى `main` |
 | **النتيجة** | ❌ فشل = PR مرفوض · ✅ نجاح = PR مسموح |
 
@@ -118,6 +119,7 @@ bash scripts/check-architecture.sh
 3. عدم وجود حزم بنية تحتية في Domain أو Application (R-DOM-09، R-APP-09)
 4. بنية ملفات التوثيق (R-DOC-01، R-DOC-02)
 5. عدم وجود Service Locator patterns خارج Bootstrapper (R-BST-02)
+6. أي PR يغيّر `src/` يجب أن يغيّر `docs/` أيضاً (R-DOC-04)
 
 ## مرجع سريع — Quick Reference
 
@@ -129,9 +131,11 @@ bash scripts/check-architecture.sh
 ✅ التجميع → Bootstrapper (Composition Root)
 ✅ الاعتمادات → نحو الداخل فقط
 ✅ الاختبارات → كل invariant وكل use-case
+✅ التوثيق → كل تغيير في src/ يرافقه تحديث docs/
 ❌ Service Locators
 ❌ منطق أعمال خارج Domain
 ❌ وصول Presentation للبنية التحتية
+❌ تغيير كود بدون تحديث التوثيق
 ```
 
 _Last Updated: 2026-02-10_

@@ -16,11 +16,14 @@ src/ERP.Infrastructure/
 
 ```
 ERP.Infrastructure/
-├── Accounting/
-│   ├── Journals/
-│   ├── ChartOfAccounts/
-│   └── Ledgers/
-└── InfrastructureModule.cs
+├── Persistence/
+│   ├── InMemoryUnitOfWork.cs
+│   └── Repositories/
+│       ├── InMemoryChartOfAccountsRepository.cs
+│       ├── InMemoryJournalRepository.cs
+│       └── InMemoryLedgerRepository.cs
+├── InfrastructureModule.cs
+└── AssemblyMarker.cs
 ```
 
 ## المسؤوليات

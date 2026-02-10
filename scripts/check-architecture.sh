@@ -193,6 +193,47 @@ else
   pass "R-BST-02: No Service Locator patterns found outside Bootstrapper."
 fi
 
+# ── 11. R-DOC-04: Code changes must be accompanied by docs changes ─────────
+info "R-DOC-04: Code changes in src/ must include docs/ updates..."
+
+# Determine the base branch for comparison
+base_ref="${GITHUB_BASE_REF:-}"
+if [ -n "$base_ref" ]; then
+  # In PR context — fetch the base ref for comparison
+  base_ref="origin/$base_ref"
+fi
+
+if [ -z "$base_ref" ]; then
+  # Not in a PR context — try to use main/master as base
+  if git rev-parse --verify origin/main >/dev/null 2>&1; then
+    base_ref="origin/main"
+  elif git rev-parse --verify origin/master >/dev/null 2>&1; then
+    base_ref="origin/master"
+  fi
+fi
+
+if [ -n "$base_ref" ]; then
+  # Get list of changed files compared to base
+  changed_files=$(git diff --name-only "$base_ref"...HEAD 2>/dev/null || git diff --name-only "$base_ref" HEAD 2>/dev/null || echo "")
+
+  if [ -n "$changed_files" ]; then
+    src_changed=$(echo "$changed_files" | grep -c '^src/' || true)
+    docs_changed=$(echo "$changed_files" | grep -c '^docs/' || true)
+
+    if [ "$src_changed" -gt 0 ] && [ "$docs_changed" -eq 0 ]; then
+      fail "R-DOC-04: PR changes $src_changed file(s) in src/ but no file in docs/ was updated. Every code change must include documentation updates."
+    elif [ "$src_changed" -gt 0 ]; then
+      pass "R-DOC-04: Code changes in src/ accompanied by docs/ updates ($src_changed src, $docs_changed docs)."
+    else
+      pass "R-DOC-04: No src/ changes detected — docs-only or non-code PR."
+    fi
+  else
+    pass "R-DOC-04: No file changes detected (initial commit or local run)."
+  fi
+else
+  pass "R-DOC-04: Skipped — no base branch available for comparison (local run)."
+fi
+
 # ═════════════════════════════════════════════════════════════════════════════
 echo ""
 echo "════════════════════════════════════════════════════"
