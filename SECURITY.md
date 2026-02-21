@@ -2,20 +2,22 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+هذا المشروع في مرحلة التطوير النشط ولم يصدر منه إصدار رسمي بعد.
+يتم تطبيق التحديثات الأمنية على الفرع الرئيسي (`main`) فقط.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| `main`  | :white_check_mark: |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+إذا اكتشفت ثغرة أمنية في هذا المشروع، يُرجى الإبلاغ عنها بشكل خاص عبر
+[GitHub Security Advisories](https://github.com/zahernashwan/ERP/security/advisories/new).
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+**يُرجى عدم فتح Issue عام للإبلاغ عن الثغرات الأمنية.**
+
+### ما يمكنك توقعه
+
+- سيتم الرد على البلاغ خلال **7 أيام عمل**.
+- سيتم إبلاغك بالقرار المتخذ بشأن الثغرة (قبول أو رفض) مع التوضيح.
+- في حال القبول، سيتم العمل على إصلاح الثغرة ونشر التحديث في أقرب وقت ممكن.
