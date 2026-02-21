@@ -11,6 +11,7 @@
 | [`docs/ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md) | ⚠️ القواعد المعمارية الإلزامية — المرجع الحاكم لمراجعات PR |
 | [`docs/README.template.md`](README.template.md) | قالب توليد README.md وقواعد التوثيق |
 | [`docs/critical-recommendations.md`](critical-recommendations.md) | ⚠️ التوصيات الحرجة لتحسين المشروع |
+| [`docs/development-guide.md`](development-guide.md) | 👨‍💻 دليل التطوير — إضافة كيانات ومعايير الكود |
 | [`docs/documentation-map.md`](documentation-map.md) | هذا الملف — فهرس ملفات التوثيق |
 
 ## توثيق المشاريع (`docs/projects/`)
@@ -83,6 +84,10 @@
 | --- | --- |
 | [`README.md`](../README.md) | ملف التوثيق الرئيسي (يُولَّد تلقائياً من `docs/`) |
 | [`SECURITY.md`](../SECURITY.md) | سياسة الأمان والإبلاغ عن الثغرات |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md) | دليل المساهمة في المشروع |
+| [`LICENSE`](../LICENSE) | رخصة MIT |
+| [`Dockerfile`](../Dockerfile) | بناء واختبار المشروع في حاوية Docker |
+| [`docker-compose.yml`](../docker-compose.yml) | تشغيل الحاويات |
 
 ## أدوات التوثيق
 
@@ -94,4 +99,4 @@
 | [`.github/workflows/architecture-gate.yml`](../.github/workflows/architecture-gate.yml) | ⚠️ بوابة CI — ترفض أي PR يخالف القواعد المعمارية |
 | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | تعليمات Copilot — تشير إلى القواعد المعمارية كمرجع حاكم |
 
-_Last Updated: 2026-02-10_
+_Last Updated: 2026-02-21_
