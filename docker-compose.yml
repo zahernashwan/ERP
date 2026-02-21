@@ -1,0 +1,7 @@
+services:
+  erp-build-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test
+    container_name: erp-build-test

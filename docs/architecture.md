@@ -1,6 +1,64 @@
 # البنية المعمارية — Clean Architecture + DDD + CQRS
 
+> 📂 `docs/` · [↑ خريطة التوثيق](documentation-map.md)
+
 هذا الحل يتبع **Clean Architecture** بشكل صارم، ويقسم النظام إلى أربع طبقات واضحة. كل طبقة لها مسؤوليات محددة وحدود صارمة، واتجاه الاعتمادات يكون نحو الداخل فقط.
+
+## 📁 هيكل المشروع — Project Structure
+
+```
+ERP/
+├── src/
+│   ├── ERP.Domain/                    # 🎯 طبقة النطاق — القواعد التجارية
+│   │   ├── Accounting/
+│   │   │   ├── Aggregates/            # الكيانات المجمّعة
+│   │   │   │   ├── Accounts/          #   Account entity
+│   │   │   │   ├── ChartOfAccounts/   #   ChartOfAccounts aggregate root
+│   │   │   │   ├── Journals/          #   Journal + JournalLine aggregate
+│   │   │   │   └── Ledgers/           #   Ledger aggregate root
+│   │   │   ├── Events/                # أحداث النطاق (JournalPosted, etc.)
+│   │   │   ├── Exceptions/            # استثناءات الأعمال المحددة
+│   │   │   └── ValueObjects/          # كائنات القيمة (Money, AccountNumber, etc.)
+│   │   ├── Entity.cs                  # الكيان الأساسي
+│   │   ├── ValueObject.cs             # كائن القيمة الأساسي
+│   │   └── DomainEvent.cs             # حدث النطاق الأساسي
+│   │
+│   ├── ERP.Application/               # 🔄 طبقة التطبيق — حالات الاستخدام CQRS
+│   │   ├── Accounting/
+│   │   │   ├── ChartOfAccounts/       # Commands + Queries + Handlers + DTOs
+│   │   │   ├── Journals/              # Commands + Queries + Handlers + DTOs
+│   │   │   └── Ledgers/               # Commands + Queries + Handlers + DTOs
+│   │   ├── ICommand.cs                # واجهة الأوامر
+│   │   ├── IQuery.cs                  # واجهة الاستعلامات
+│   │   ├── IUnitOfWork.cs             # واجهة وحدة العمل
+│   │   └── ApplicationModule.cs       # تسجيل DI
+│   │
+│   ├── ERP.Infrastructure/            # ⚙️ طبقة البنية التحتية — التنفيذات التقنية
+│   │   ├── Persistence/
+│   │   │   ├── Repositories/          # تنفيذ المستودعات (InMemory حالياً)
+│   │   │   └── InMemoryUnitOfWork.cs  # تنفيذ وحدة العمل
+│   │   └── InfrastructureModule.cs    # تسجيل DI
+│   │
+│   ├── ERP.Presentation.WinForms/     # 🖥️ طبقة العرض — واجهة المستخدم
+│   │   ├── Accounting/                # نماذج المحاسبة
+│   │   ├── Navigation/                # التنقل
+│   │   └── Shell/                     # الإطار الرئيسي
+│   │
+│   └── ERP.Bootstrapper/              # 🚀 نقطة التشغيل — Composition Root
+│       ├── ContainerConfiguration.cs  # تجميع DI
+│       └── Program.cs                 # نقطة الدخول
+│
+├── tests/
+│   ├── ERP.Domain.Tests/              # 🧪 اختبارات النطاق
+│   ├── ERP.Application.Tests/         # 🧪 اختبارات التطبيق (16 اختبار)
+│   └── ERP.ArchitectureGuard/         # 🛡️ حراسة الحدود المعمارية
+│
+├── docs/                              # 📝 التوثيق الشامل
+├── scripts/                           # 🔧 سكربتات CI والتوليد
+├── Dockerfile                         # 🐳 بناء واختبار في حاوية
+├── docker-compose.yml                 # 🐳 تشغيل متعدد الحاويات
+└── ERP.sln                            # ملف الحل
+```
 
 ## خريطة المشاريع (أين تضع الكود؟)
 
@@ -91,10 +149,47 @@ dotnet run --project src/ERP.Bootstrapper
 dotnet test -c Release
 ```
 
+## أنماط التصميم المطبّقة — Applied Design Patterns
+
+### CQRS (Command Query Responsibility Segregation)
+
+```
+Command (نية تغيير) → CommandHandler → Aggregate (Domain) → Repository.Save → UnitOfWork.Commit
+Query  (طلب قراءة) → QueryHandler  → ReadRepository → DTO
+```
+
+- **Commands**: `OpenChartCommand`, `PostJournalCommand`, `RegisterAccountCommand`, ...
+- **Queries**: `GetChartByIdQuery`, `ListJournalsQuery`, `GetLedgerByIdQuery`, ...
+- كل Handler يعالج Command أو Query واحد فقط عبر MediatR
+
+### Repository Pattern
+
+```
+Application يعرّف:  IChartOfAccountsRepository, IJournalRepository, ILedgerRepository
+Infrastructure ينفّذ: InMemoryChartOfAccountsRepository, InMemoryJournalRepository, ...
+```
+
+### Unit of Work
+
+```
+Handler يستدعي:  repository.SaveAsync(aggregate)
+                 unitOfWork.SaveChangesAsync()
+```
+
+### Domain Events
+
+```
+Aggregate يُصدر:  journal.Post() → يرفع JournalPosted event
+                  chart.RegisterAccount() → يرفع AccountRegistered event
+```
+
 ## ملاحظات معمارية أساسية
 
 - القواعد التجارية دائماً في Domain.
 - التغييرات في البنية التحتية أو الواجهة لا يجب أن تؤثر على Domain.
 - يتم حقن جميع الاعتمادات صراحةً دون Service Locators.
+- أي PR يخالف القواعد المعمارية يُرفض تلقائياً عبر CI Gate.
 
-_Last Updated: 2026-02-10_
+> 📖 للقواعد المعمارية التفصيلية راجع [`ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md)
+
+_Last Updated: 2026-02-21_

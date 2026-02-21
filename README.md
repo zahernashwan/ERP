@@ -4,9 +4,10 @@
 
 ## Table of Contents
 
-- [نظرة عامة — ERP Solution](docs/overview.md)
+- [نظرة عامة — NoufexERP Solution](docs/overview.md)
 - [البنية المعمارية — Clean Architecture + DDD + CQRS](docs/architecture.md)
 - [القواعد المعمارية — Architecture Rules](docs/ARCHITECTURE_RULES.md)
+- [دليل التطوير — Development Guide](docs/development-guide.md)
 - [التوصيات الحرجة — Critical Recommendations](docs/critical-recommendations.md)
 - [خريطة التوثيق (Documentation Map)](docs/documentation-map.md)
 
@@ -48,9 +49,15 @@
 
 ---
 
-# نظرة عامة — ERP Solution
+# نظرة عامة — NoufexERP Solution
 
-هذا المستودع عبارة عن حل (.NET 8) مبني بأسلوب **Clean Architecture** مع WinForms كواجهة مستخدم.
+![.NET](https://img.shields.io/badge/.NET-8.0-purple.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Architecture](https://img.shields.io/badge/Architecture-Clean-brightgreen.svg)
+![Design](https://img.shields.io/badge/Design-Domain%20Driven-blue.svg)
+![CQRS](https://img.shields.io/badge/Pattern-CQRS-orange.svg)
+
+هذا المستودع عبارة عن حل **.NET 8** مبني بأسلوب **Clean Architecture** مع **Domain-Driven Design (DDD)** ونمط **CQRS** عبر MediatR، وواجهة مستخدم WinForms.
 
 ## هدف حل ERP
 
@@ -61,6 +68,50 @@
 - **العمليات**: تنفيذ العمليات اليومية (قيود/سندات/إشعارات، أوامر توريد/صرف/تحويل، مشتريات/مبيعات، ترحيل/إقفال…).
 - **التقارير**: تقارير الحسابات والمخزون والمشتريات والمبيعات.
 - **إدارة النظام**: المستخدمون والصلاحيات والنسخ الاحتياطي/الاسترجاع.
+
+## ✨ أبرز المزايا — Key Highlights
+
+- 🏗️ **Clean Architecture**: فصل واضح بأربع طبقات واتجاه اعتمادات صارم نحو الداخل
+- 🎯 **Domain-Driven Design**: نموذج أعمال غني بالـ Aggregates وValue Objects وDomain Events
+- 🔄 **CQRS Pattern**: فصل كامل بين Commands وQueries عبر MediatR
+- 🏪 **Repository & Unit of Work**: أنماط وصول بيانات على مستوى المؤسسات
+- 🧪 **بنية اختبارات شاملة**: اختبارات وحدة وتطبيق وحراسة معمارية بـ xUnit
+- 🛡️ **حراسة معمارية آلية**: CI Gate يرفض تلقائياً أي PR يخالف القواعد المعمارية
+- 📝 **توثيق شامل ثنائي اللغة**: توثيق عربي/إنجليزي يُولَّد تلقائياً
+
+## 🛠️ التقنيات المستخدمة — Technologies
+
+### Backend
+
+| التقنية | الوصف |
+| --- | --- |
+| **.NET 8** | إطار العمل الرئيسي |
+| **MediatR** | تنفيذ نمط Mediator لـ CQRS |
+| **xUnit** | إطار الاختبارات |
+| **Microsoft.Extensions.DependencyInjection** | حقن الاعتمادات |
+
+### واجهة المستخدم
+
+| التقنية | الوصف |
+| --- | --- |
+| **WinForms (.NET 8)** | واجهة مستخدم مكتبية |
+| **Supervising Controller** | نمط فصل العرض عن المنطق |
+
+### التخزين (الحالي والمخطط)
+
+| التقنية | الحالة | الوصف |
+| --- | --- | --- |
+| **In-Memory Repositories** | ✅ حالي | تخزين مؤقت للتطوير والاختبار |
+| **Entity Framework Core + SQL Server** | 🔜 مخطط | تخزين دائم للإنتاج |
+
+### أدوات التطوير والـ DevOps
+
+| الأداة | الوصف |
+| --- | --- |
+| **GitHub Actions** | CI/CD — بوابة معمارية وفحص توثيق |
+| **Docker** | حاويات للبناء والاختبار |
+| **scripts/check-architecture.sh** | فحص القواعد المعمارية محلياً وفي CI |
+| **scripts/generate-readme.sh** | توليد README.md تلقائياً من ملفات docs/ |
 
 ## شجرة الوظائف (Functional Map)
 
@@ -196,37 +247,153 @@ ERP
    └─ استرجاع نسخة احتياطية
 ```
 
-## Quick Start
+## 🎯 الميزات الرئيسية — Key Features
 
-المتطلبات: .NET SDK 8
+### الوحدات التجارية المنفّذة (3 Aggregates)
 
-### Build
+- ✅ **الدليل المحاسبي (ChartOfAccounts)** — فتح دليل، تسجيل حسابات، تعطيل حساب
+- ✅ **القيود اليومية (Journal)** — إنشاء قيد، إضافة بنود مدين/دائن، ترحيل القيد
+- ✅ **دفتر الأستاذ (Ledger)** — فتح دفتر، تسجيل قيود، إقفال الفترة
+
+### أنماط التصميم المطبّقة
+
+- 🔄 **CQRS** — Commands تُغيّر الحالة، Queries تقرأ فقط
+- 🏪 **Repository Pattern** — واجهات في Application، تنفيذ في Infrastructure
+- 🔗 **Unit of Work** — حدود معاملات واضحة
+- 🎯 **Mediator (MediatR)** — فصل بين طالب العملية ومنفّذها
+- 📢 **Domain Events** — أحداث أعمال مثل `JournalPosted`، `AccountRegistered`
+
+### البنية التحتية للاختبارات
+
+| المشروع | عدد الاختبارات | ماذا يختبر؟ |
+| --- | --- | --- |
+| `ERP.Domain.Tests` | اختبارات وحدة | سلوك الـ Aggregates والـ invariants |
+| `ERP.Application.Tests` | 16 اختبار | جميع Handlers (Commands + Queries) |
+| `ERP.ArchitectureGuard` | حراسة معمارية | حدود الاعتمادات بين الطبقات |
+
+### بوابة CI المعمارية
+
+- 🚫 **رفض تلقائي** لأي PR يخالف القواعد المعمارية
+- ✅ فحص اتجاه الاعتمادات (R-DEP-01 إلى R-DEP-05)
+- ✅ فحص عزل الطبقات (R-DOM-09، R-APP-09)
+- ✅ فحص تحديث التوثيق (R-DOC-04)
+
+## 📋 متطلبات النظام — System Requirements
+
+- **.NET 8 SDK** أو أحدث
+- **Visual Studio 2022** أو **VS Code** مع إضافة C#
+- **Git** للتحكم بالإصدارات
+- **Docker** (اختياري — للبناء والاختبار في حاوية)
+
+## 🚀 Quick Start
 
 ```bash
+# استنساخ المستودع
+git clone https://github.com/zahernashwan/ERP.git
+cd ERP
+
+# استعادة الحزم
+dotnet restore
+
+# البناء
 dotnet build -c Release
-```
 
-### Run
-
-نقطة التشغيل المفضلة (Composition Root):
-
-```bash
-dotnet run --project src/ERP.Bootstrapper
-```
-
-### Test
-
-```bash
+# تشغيل الاختبارات
 dotnet test -c Release
+
+# تشغيل التطبيق (Composition Root)
+dotnet run --project src/ERP.Bootstrapper
+
+# أو باستخدام Docker
+docker compose up --build
 ```
 
-_Last Updated: 2026-02-10_
+### فحص القواعد المعمارية محلياً
+
+```bash
+bash scripts/check-architecture.sh
+```
+
+## 📊 حالة التنفيذ — Implementation Status
+
+| المكوّن | الحالة | التفاصيل |
+| --- | --- | --- |
+| **Clean Architecture** | ✅ مكتمل | 4 طبقات + Bootstrapper مع CI Gate |
+| **DDD — Aggregates** | ✅ مكتمل | ChartOfAccounts، Journal، Ledger |
+| **CQRS + MediatR** | ✅ مكتمل | Commands وQueries لجميع الوحدات |
+| **Repository + UoW** | ✅ مكتمل | واجهات + تنفيذ InMemory |
+| **اختبارات وحدة وتطبيق** | ✅ مكتمل | 16+ اختبار ناجح |
+| **حراسة معمارية** | ✅ مكتمل | CI Gate + ArchitectureGuard |
+| **توثيق شامل** | ✅ مكتمل | عربي/إنجليزي يُولَّد تلقائياً |
+| **تخزين دائم (EF Core)** | 🔜 مخطط | الانتقال من InMemory إلى SQL Server |
+| **معالجة أحداث النطاق** | 🔜 مخطط | نشر ومعالجة Domain Events عبر MediatR |
+| **واجهة Web API** | 🔜 مخطط | RESTful API مع Swagger |
+
+_Last Updated: 2026-02-21_
 
 ---
 
 # البنية المعمارية — Clean Architecture + DDD + CQRS
 
+> 📂 `docs/` · [↑ خريطة التوثيق](documentation-map.md)
+
 هذا الحل يتبع **Clean Architecture** بشكل صارم، ويقسم النظام إلى أربع طبقات واضحة. كل طبقة لها مسؤوليات محددة وحدود صارمة، واتجاه الاعتمادات يكون نحو الداخل فقط.
+
+## 📁 هيكل المشروع — Project Structure
+
+```
+ERP/
+├── src/
+│   ├── ERP.Domain/                    # 🎯 طبقة النطاق — القواعد التجارية
+│   │   ├── Accounting/
+│   │   │   ├── Aggregates/            # الكيانات المجمّعة
+│   │   │   │   ├── Accounts/          #   Account entity
+│   │   │   │   ├── ChartOfAccounts/   #   ChartOfAccounts aggregate root
+│   │   │   │   ├── Journals/          #   Journal + JournalLine aggregate
+│   │   │   │   └── Ledgers/           #   Ledger aggregate root
+│   │   │   ├── Events/                # أحداث النطاق (JournalPosted, etc.)
+│   │   │   ├── Exceptions/            # استثناءات الأعمال المحددة
+│   │   │   └── ValueObjects/          # كائنات القيمة (Money, AccountNumber, etc.)
+│   │   ├── Entity.cs                  # الكيان الأساسي
+│   │   ├── ValueObject.cs             # كائن القيمة الأساسي
+│   │   └── DomainEvent.cs             # حدث النطاق الأساسي
+│   │
+│   ├── ERP.Application/               # 🔄 طبقة التطبيق — حالات الاستخدام CQRS
+│   │   ├── Accounting/
+│   │   │   ├── ChartOfAccounts/       # Commands + Queries + Handlers + DTOs
+│   │   │   ├── Journals/              # Commands + Queries + Handlers + DTOs
+│   │   │   └── Ledgers/               # Commands + Queries + Handlers + DTOs
+│   │   ├── ICommand.cs                # واجهة الأوامر
+│   │   ├── IQuery.cs                  # واجهة الاستعلامات
+│   │   ├── IUnitOfWork.cs             # واجهة وحدة العمل
+│   │   └── ApplicationModule.cs       # تسجيل DI
+│   │
+│   ├── ERP.Infrastructure/            # ⚙️ طبقة البنية التحتية — التنفيذات التقنية
+│   │   ├── Persistence/
+│   │   │   ├── Repositories/          # تنفيذ المستودعات (InMemory حالياً)
+│   │   │   └── InMemoryUnitOfWork.cs  # تنفيذ وحدة العمل
+│   │   └── InfrastructureModule.cs    # تسجيل DI
+│   │
+│   ├── ERP.Presentation.WinForms/     # 🖥️ طبقة العرض — واجهة المستخدم
+│   │   ├── Accounting/                # نماذج المحاسبة
+│   │   ├── Navigation/                # التنقل
+│   │   └── Shell/                     # الإطار الرئيسي
+│   │
+│   └── ERP.Bootstrapper/              # 🚀 نقطة التشغيل — Composition Root
+│       ├── ContainerConfiguration.cs  # تجميع DI
+│       └── Program.cs                 # نقطة الدخول
+│
+├── tests/
+│   ├── ERP.Domain.Tests/              # 🧪 اختبارات النطاق
+│   ├── ERP.Application.Tests/         # 🧪 اختبارات التطبيق (16 اختبار)
+│   └── ERP.ArchitectureGuard/         # 🛡️ حراسة الحدود المعمارية
+│
+├── docs/                              # 📝 التوثيق الشامل
+├── scripts/                           # 🔧 سكربتات CI والتوليد
+├── Dockerfile                         # 🐳 بناء واختبار في حاوية
+├── docker-compose.yml                 # 🐳 تشغيل متعدد الحاويات
+└── ERP.sln                            # ملف الحل
+```
 
 ## خريطة المشاريع (أين تضع الكود؟)
 
@@ -317,13 +484,50 @@ dotnet run --project src/ERP.Bootstrapper
 dotnet test -c Release
 ```
 
+## أنماط التصميم المطبّقة — Applied Design Patterns
+
+### CQRS (Command Query Responsibility Segregation)
+
+```
+Command (نية تغيير) → CommandHandler → Aggregate (Domain) → Repository.Save → UnitOfWork.Commit
+Query  (طلب قراءة) → QueryHandler  → ReadRepository → DTO
+```
+
+- **Commands**: `OpenChartCommand`, `PostJournalCommand`, `RegisterAccountCommand`, ...
+- **Queries**: `GetChartByIdQuery`, `ListJournalsQuery`, `GetLedgerByIdQuery`, ...
+- كل Handler يعالج Command أو Query واحد فقط عبر MediatR
+
+### Repository Pattern
+
+```
+Application يعرّف:  IChartOfAccountsRepository, IJournalRepository, ILedgerRepository
+Infrastructure ينفّذ: InMemoryChartOfAccountsRepository, InMemoryJournalRepository, ...
+```
+
+### Unit of Work
+
+```
+Handler يستدعي:  repository.SaveAsync(aggregate)
+                 unitOfWork.SaveChangesAsync()
+```
+
+### Domain Events
+
+```
+Aggregate يُصدر:  journal.Post() → يرفع JournalPosted event
+                  chart.RegisterAccount() → يرفع AccountRegistered event
+```
+
 ## ملاحظات معمارية أساسية
 
 - القواعد التجارية دائماً في Domain.
 - التغييرات في البنية التحتية أو الواجهة لا يجب أن تؤثر على Domain.
 - يتم حقن جميع الاعتمادات صراحةً دون Service Locators.
+- أي PR يخالف القواعد المعمارية يُرفض تلقائياً عبر CI Gate.
 
-_Last Updated: 2026-02-10_
+> 📖 للقواعد المعمارية التفصيلية راجع [`ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md)
+
+_Last Updated: 2026-02-21_
 
 ---
 
@@ -471,6 +675,149 @@ _Last Updated: 2026-02-10_
 
 ---
 
+# دليل التطوير — Development Guide
+
+> 📂 `docs/` · [↑ خريطة التوثيق](documentation-map.md)
+
+## الوصف العام
+
+يوضح هذا الدليل كيفية المساهمة في المشروع، إضافة كيانات جديدة، ومعايير الكود المتّبعة.
+
+## 🏗️ إضافة كيان جديد — Adding a New Entity
+
+اتبع الخطوات التالية بالترتيب لإضافة كيان (Entity/Aggregate) جديد مع الحفاظ على Clean Architecture:
+
+### 1. طبقة النطاق (Domain)
+
+```
+src/ERP.Domain/{Module}/Aggregates/{EntityName}/{EntityName}.cs
+src/ERP.Domain/{Module}/ValueObjects/{ValueObjectName}.cs        # إن لزم
+src/ERP.Domain/{Module}/Events/{EventName}.cs                    # إن لزم
+src/ERP.Domain/{Module}/Exceptions/{ExceptionName}.cs            # إن لزم
+```
+
+- الكيان يرث من `Entity` ويُفرض فيه الـ invariants.
+- القيم الثابتة (مثل `Money`, `AccountNumber`) تكون Value Objects.
+- الأحداث تُصاغ بصيغة الماضي (`OrderPlaced`, `InvoiceIssued`).
+
+### 2. طبقة التطبيق (Application)
+
+```
+src/ERP.Application/{Module}/{EntityName}/
+├── I{EntityName}Repository.cs            # واجهة المستودع (write)
+├── I{EntityName}ReadRepository.cs        # واجهة القراءة (read)
+├── Create{Entity}/
+│   ├── Create{Entity}Command.cs          # Command DTO
+│   └── Create{Entity}Handler.cs          # Handler
+├── Get{Entity}ById/
+│   ├── Get{Entity}ByIdQuery.cs           # Query DTO
+│   ├── Get{Entity}ByIdHandler.cs         # Handler
+│   └── {Entity}DetailsDto.cs             # DTO للعرض
+└── List{Entities}/
+    ├── List{Entities}Query.cs
+    ├── List{Entities}Handler.cs
+    └── {Entity}ListItemDto.cs
+```
+
+- **Commands** تُغيّر الحالة — **Queries** لا تُغيّر الحالة (R-APP-01).
+- Handler يفوّض منطق الأعمال للـ Domain (R-APP-07).
+
+### 3. طبقة البنية التحتية (Infrastructure)
+
+```
+src/ERP.Infrastructure/Persistence/Repositories/InMemory{EntityName}Repository.cs
+```
+
+- ينفّذ الواجهات المعرّفة في Application (R-INF-01).
+- يُسجَّل في `InfrastructureModule.cs` (R-INF-05).
+
+### 4. طبقة العرض (Presentation)
+
+```
+src/ERP.Presentation.WinForms/{Module}/{EntityName}/
+├── {EntityName}ListForm.cs
+└── {EntityName}DetailsForm.cs
+```
+
+- لا منطق أعمال — عرض فقط (R-PRE-01).
+
+### 5. الاختبارات (Tests)
+
+```
+tests/ERP.Domain.Tests/{Module}/{EntityName}/{EntityName}Tests.cs
+tests/ERP.Application.Tests/{Module}/{EntityName}/{HandlerName}Tests.cs
+```
+
+- كل invariant يجب أن يكون له اختبار (R-TST-01).
+- كل Handler يجب أن يكون له اختبار (R-TST-02).
+
+### 6. التوثيق (Documentation)
+
+```
+docs/modules/{EntityName}.md
+```
+
+- كل تغيير في `src/` يجب أن يرافقه تحديث في `docs/` (R-DOC-04).
+
+## 📏 معايير الكود — Code Standards
+
+### تسمية C# — Naming Conventions
+
+| العنصر | النمط | مثال |
+| --- | --- | --- |
+| Classes / Records | PascalCase | `ChartOfAccounts`, `PostJournalCommand` |
+| Interfaces | I + PascalCase | `IJournalRepository`, `IUnitOfWork` |
+| Methods | PascalCase | `RegisterAccount()`, `HandleAsync()` |
+| Private fields | _camelCase | `_repository`, `_unitOfWork` |
+| Parameters | camelCase | `chartId`, `journalNumber` |
+| Constants | PascalCase | `MaxLineCount` |
+
+### مبادئ الكود النظيف — Clean Code Principles
+
+- ✅ اتبع مبادئ **SOLID**
+- ✅ استخدم **Dependency Injection** عبر الـ constructor
+- ✅ أضف **XML comments** على الأعضاء العامة
+- ✅ ارمِ **Domain Exceptions** واضحة عند انتهاك invariant
+- ✅ اكتب **اختبارات وحدة** لكل قاعدة تجارية
+- ❌ لا تستخدم **Service Locator** خارج Bootstrapper
+- ❌ لا تضع **منطق أعمال** خارج طبقة Domain
+- ❌ لا تعتمد على **بنية تحتية** في Domain أو Application
+
+### نمط الاختبار — Test Pattern (AAA)
+
+```csharp
+[Fact]
+public async Task HandleAsync_WhenCalled_ExpectedBehavior()
+{
+    // Arrange — تجهيز البيانات والاعتمادات
+    var repository = new InMemoryRepository();
+    var handler = new MyHandler(repository, unitOfWork);
+
+    // Act — تنفيذ العملية
+    await handler.HandleAsync(new MyCommand(...));
+
+    // Assert — التحقق من النتيجة
+    Assert.NotNull(result);
+}
+```
+
+## 🔄 سير عمل التطوير — Development Workflow
+
+```
+1. أنشئ فرع:     git checkout -b feature/my-feature
+2. نفّذ التغيير:   (اتبع الخطوات أعلاه)
+3. افحص محلياً:   bash scripts/check-architecture.sh
+4. شغّل الاختبارات: dotnet test
+5. حدّث التوثيق:   (عدّل docs/ ثم شغّل scripts/generate-readme.sh)
+6. ادفع وافتح PR:  git push origin feature/my-feature
+```
+
+> ⚠️ CI Gate سيرفض PR تلقائياً إذا خالف أي قاعدة معمارية.
+
+_Last Updated: 2026-02-21_
+
+---
+
 # التوصيات الحرجة — Critical Recommendations
 
 > 📂 `docs/` · [↑ خريطة التوثيق](documentation-map.md)
@@ -600,6 +947,7 @@ _Last Updated: 2026-02-10_
 | [`docs/ARCHITECTURE_RULES.md`](ARCHITECTURE_RULES.md) | ⚠️ القواعد المعمارية الإلزامية — المرجع الحاكم لمراجعات PR |
 | [`docs/README.template.md`](README.template.md) | قالب توليد README.md وقواعد التوثيق |
 | [`docs/critical-recommendations.md`](critical-recommendations.md) | ⚠️ التوصيات الحرجة لتحسين المشروع |
+| [`docs/development-guide.md`](development-guide.md) | 👨‍💻 دليل التطوير — إضافة كيانات ومعايير الكود |
 | [`docs/documentation-map.md`](documentation-map.md) | هذا الملف — فهرس ملفات التوثيق |
 
 ## توثيق المشاريع (`docs/projects/`)
@@ -672,6 +1020,10 @@ _Last Updated: 2026-02-10_
 | --- | --- |
 | [`README.md`](../README.md) | ملف التوثيق الرئيسي (يُولَّد تلقائياً من `docs/`) |
 | [`SECURITY.md`](../SECURITY.md) | سياسة الأمان والإبلاغ عن الثغرات |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md) | دليل المساهمة في المشروع |
+| [`LICENSE`](../LICENSE) | رخصة MIT |
+| [`Dockerfile`](../Dockerfile) | بناء واختبار المشروع في حاوية Docker |
+| [`docker-compose.yml`](../docker-compose.yml) | تشغيل الحاويات |
 
 ## أدوات التوثيق
 
@@ -683,7 +1035,7 @@ _Last Updated: 2026-02-10_
 | [`.github/workflows/architecture-gate.yml`](../.github/workflows/architecture-gate.yml) | ⚠️ بوابة CI — ترفض أي PR يخالف القواعد المعمارية |
 | [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) | تعليمات Copilot — تشير إلى القواعد المعمارية كمرجع حاكم |
 
-_Last Updated: 2026-02-10_
+_Last Updated: 2026-02-21_
 
 ---
 
@@ -1675,4 +2027,4 @@ _Last Updated: 2026-02-10_
 
 ---
 
-_Last generated: 2026-02-10 02:35:00 UTC_
+_Last generated: 2026-02-21 03:39:05 UTC_
