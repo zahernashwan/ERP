@@ -70,10 +70,12 @@
 > من إطار **ARIS** (Architecture of Integrated Information Systems) للعالم
 > **August-Wilhelm Scheer** *(Scheer, A.-W., 2000. ARIS — Business Process Modeling. 3rd ed. Berlin: Springer)*.
 >
-> يعتمد التصنيف الداخلي لكل وحدة على النمط الرباعي المعياري:
+> يعتمد التصنيف الداخلي **لغالبية الوحدات** على النمط الرباعي المعياري:
 > **التهيئة (Configuration) → البيانات الأساسية (Master Data) → العمليات (Transactions) → التقارير (Reporting)**،
 > وهو النمط المرجعي المعتمد في أنظمة SAP ERP *(SAP SE, SAP ERP Reference Model)*
 > والمراجع الأكاديمية المعيارية *(Monk, E. & Wagner, B., 2013. Concepts in Enterprise Resource Planning. 4th ed. Cengage)*.
+> مع وجود وحدات تنظيمية/أمنية (مثل 6 و7) تُعرض بهيكل مبسّط يتناسب مع طبيعتها،
+> وقد تتضمن بعض الوحدات مستويات إضافية متخصصة (مثل 2.4 المراجعة والإقفال و3.3 التكامل).
 >
 > ملاحظة: هذه الشجرة تُستخدم كمرجع نطاق (Scope) للمنتج. التنفيذ الحالي قد يغطي جزءًا منها ويتوسع تدريجيًا.
 
@@ -217,7 +219,7 @@ ERP
 | معيار التحقق | النتيجة |
 | --- | --- |
 | ترقيم WBS هرمي (ARIS Function Tree) | ✔️ |
-| تصنيف رباعي معياري (Configuration → Master Data → Transactions → Reports) | ✔️ |
+| تصنيف رباعي معياري (Configuration → Master Data → Transactions → Reports) | ◑ (غالبية الوحدات) |
 | التقسيم حسب قدرات الأعمال (Business Capabilities) | ✔️ |
 | توافق نمطي مع ERP المؤسسي (SAP/Oracle Module Style) | ✔️ |
 | ملاءمة Modular Monolith و Clean Architecture | ✔️ |
