@@ -38,7 +38,7 @@ src/ERP.Domain/Accounting/
 
 - يُربط بسطور القيود اليومية (`JournalLine`) عبر `ProjectId`.
 
-## Failure Modes
+## Failure Modes — حالات الفشل
 
 - أحداث النطاق (Domain Events) غير منفّذة — تحتاج بناء Aggregate مستقل لمراكز التكلفة.
 - حالات الاستخدام غير منفّذة — مخطط لها ضمن التوسعات المستقبلية.
