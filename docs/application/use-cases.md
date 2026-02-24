@@ -23,7 +23,7 @@ src/ERP.Application/
 - Handler يستخدم `IUnitOfWork` لضمان حدود المعاملة.
 - لا يحتوي منطق أعمال — يفوّضه للـ Domain.
 
-## Failure Modes
+## Failure Modes — حالات الفشل
 
 - التحول الكامل إلى MediatR (إرسال Commands/Queries عبر `ISender`) غير منفّذ بعد.
 

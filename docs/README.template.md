@@ -9,11 +9,15 @@
 
 1. `docs/overview.md` — رؤية عامة
 2. `docs/architecture.md` — البنية المعمارية
-3. `docs/projects/*.md` — توثيق المشاريع
-4. `docs/modules/*.md` — توثيق الموديلات
-5. `docs/domain/*.md` — طبقة النطاق
-6. `docs/application/*.md` — طبقة التطبيق
-7. `docs/infrastructure/*.md` — طبقة البنية التحتية
+3. `docs/ARCHITECTURE_RULES.md` — القواعد المعمارية الحاكمة
+4. `docs/development-guide.md` — دليل التطوير
+5. `docs/critical-recommendations.md` — توصيات حرجة
+6. `docs/documentation-map.md` — خريطة التوثيق
+7. `docs/projects/*.md` — توثيق المشاريع
+8. `docs/modules/*.md` — توثيق الوحدات
+9. `docs/domain/*.md` — مفاهيم طبقة النطاق
+10. `docs/application/*.md` — مفاهيم طبقة التطبيق
+11. `docs/infrastructure/*.md` — مفاهيم البنية التحتية
 
 ## قواعد التوثيق
 
